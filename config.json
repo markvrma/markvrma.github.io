@@ -3,8 +3,8 @@
   "username": "markvrma",
   "name": "Mark Verma",
   "userimg": "https://avatars.githubusercontent.com/u/78155861?v=4",
-  "sort": "pushed",
-  "order": "asc",
+  "sort": "star",
+  "order": "desc",
   "includeFork": true,
   "theme": "dark.css",
   "types": [
