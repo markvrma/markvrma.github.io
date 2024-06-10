@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: " Hi there, I'm Mark."
+title: "👋 I'm **Mark** 👇"
 author_profile: true
 excerpt: "About me"
 redirect_from: 
@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-- 🧑‍🎓 I'm a final year undergraduate student at **IIIT Gwalior**.
+- 🧑‍🎓 I'm a final year undergraduate student at **IIIT Gwalior**. :point_down:
 - 🔬 My area of expertise is **Data Science and Machine Learning**.
 - 🏢 I'm currently an ML intern at [Banach Technologies](https://banach.sg) where I also contribute to backend development.
 - 🧪 I'm currently exploring the world of *LLMs and Vector Databases*. 
