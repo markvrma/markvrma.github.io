@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-- 🧑‍🎓 I'm a final year undergraduate student at **IIIT Gwalior**. :point_down:
+- 🧑‍🎓 I'm a final year undergraduate student at **IIIT Gwalior**.
 - 🔬 My area of expertise is **Data Science and Machine Learning**.
 - 🏢 I'm currently an ML intern at [Banach Technologies](https://banach.sg) where I also contribute to backend development.
 - 🧪 I'm currently exploring the world of *LLMs and Vector Databases*. 
