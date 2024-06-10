@@ -12,7 +12,7 @@ redirect_from:
 - 🔬 My area of expertise is **Data Science and Machine Learning**.
 - 🏢 I'm currently an ML intern at [Banach Technologies](https://banach.sg) where I also contribute to backend development.
 - 🧪 I'm currently exploring the world of *LLMs and Vector Databases*. 
-- 📝 Occasionally I [blog](https://markvrma.github.io/year-archive/).
+- 📝 Occasionally I [blog](https://https://markvrma.medium.com/).
 
 ---
 
