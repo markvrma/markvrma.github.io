@@ -8,13 +8,14 @@ redirect_from:
   - /about.html
 ---
 
-- :student: I'm a final year undergraduate student at **IIIT Gwalior**.
-- :microscope: My area of expertise is **Data Science and Machine Learning**.
-- :office: I'm currently an ML intern at [Banach Technologies](https://banach.sg) where I also contribute to backend development.
-- :test_tube: I'm currently exploring the world of *LLMs and Vector Databases*. 
-- :memo: Occasionally I [blog](https://markvrma.github.io/year-archive/).
+- 🧑‍🎓 I'm a final year undergraduate student at **IIIT Gwalior**.
+- 🔬 My area of expertise is **Data Science and Machine Learning**.
+- 🏢 I'm currently an ML intern at [Banach Technologies](https://banach.sg) where I also contribute to backend development.
+- 🧪 I'm currently exploring the world of *LLMs and Vector Databases*. 
+- 📝 Occasionally I [blog](https://markvrma.github.io/year-archive/).
 
 ---
+
 Work Experience
 ======
 ### [Banach Technologies](https://www.banach.sg) | *Singapore (Remote)*
@@ -39,6 +40,7 @@ Work Experience
 - Automated data pre-processing using efficient Bash and Python scripts, streamlining workflows and enhancing overall efficiency. Achieved a **90 percent reduction in dataset redundancy** by optimizing information extraction processes.
 
 ---
+
 Mini-Portfolio
 ======
 ### [Resume Parser](https://github.com/markvrma/resume-parser)
