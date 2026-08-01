@@ -1,0 +1,270 @@
+/* ==========================================================================
+   DARK MODE
+
+   Defaults to the OS/browser preference (prefers-color-scheme), with a
+   manual toggle (button in the masthead) that overrides it via
+   html[data-theme="dark"|"light"] and is remembered in localStorage.
+   See assets/js/custom.js for the toggle logic and _includes/head.html
+   for the pre-paint theme-detection script (avoids a flash of the wrong
+   theme).
+   ========================================================================== */
+
+:root {
+  color-scheme: light dark;
+}
+
+@mixin dark-theme-colors {
+  $dm-bg: #131318;
+  $dm-surface: #1c1c24;
+  $dm-surface-2: #24242e;
+  $dm-text: #e6e6ec;
+  $dm-text-muted: #9a9aa8;
+  $dm-border: #33333f;
+
+  color-scheme: dark;
+
+  &, body {
+    background: $dm-bg;
+    color: $dm-text;
+  }
+
+  a, a:visited {
+    color: var(--mv-accent-2);
+
+    &:hover, &:active {
+      color: var(--mv-accent);
+    }
+  }
+
+  hr,
+  u, ins,
+  abbr[title] {
+    border-color: $dm-border;
+  }
+
+  p > code, a > code, li > code, figcaption > code, td > code,
+  tt, kbd, samp {
+    background: $dm-surface-2;
+    border-color: $dm-border;
+    color: $dm-text;
+  }
+
+  pre {
+    background: $dm-surface-2;
+  }
+
+  .highlight,
+  div.highlighter-rouge {
+    background: $dm-surface-2 !important;
+
+    pre, code {
+      background: transparent;
+      color: $dm-text;
+    }
+  }
+
+  blockquote {
+    color: $dm-text-muted;
+    border-left-color: var(--mv-accent);
+  }
+
+  figcaption {
+    color: $dm-text-muted;
+
+    a {
+      border-bottom-color: $dm-border;
+      &:hover { color: $dm-text; border-bottom-color: $dm-text; }
+    }
+  }
+
+  /* masthead + nav */
+  .masthead {
+    background: $dm-bg;
+    border-bottom-color: $dm-border;
+  }
+
+  .greedy-nav {
+    background: $dm-bg;
+
+    a { color: $dm-text; }
+
+    .hidden-links {
+      background: $dm-surface;
+      border-color: $dm-border;
+      box-shadow: 0 4px 16px rgba(#000, 0.4);
+
+      &:after { border-color: $dm-surface transparent; }
+    }
+  }
+
+  .greedy-nav .visible-links a:before {
+    background: var(--mv-accent-2);
+  }
+
+  /* brand-colored social icons: GitHub's brand black ($github-color) is
+     essentially invisible against a near-black page, so relight it here */
+  .social-icons .fa-github,
+  .social-icons .fa-github-alt,
+  .social-icons .fa-github-square {
+    color: $dm-text;
+  }
+
+  /* sidebar / author card */
+  .author__avatar img {
+    border-color: $dm-border;
+  }
+
+  .author__bio { color: $dm-text-muted; }
+
+  .author__urls {
+    background: $dm-surface;
+    border-color: $dm-border;
+    box-shadow: 0 4px 16px rgba(#000, 0.4);
+
+    &:before { border-color: $dm-border transparent; }
+    &:after { border-color: $dm-surface transparent; }
+  }
+
+  .sidebar .author__desktop,
+  .page__meta {
+    color: $dm-text-muted;
+  }
+
+  /* archive / listing pages */
+  .archive__item-title,
+  .archive__item-excerpt {
+    color: $dm-text;
+  }
+
+  .archive__item-teaser { background: $dm-surface-2; }
+
+  .page__meta,
+  .page__date {
+    color: $dm-text-muted;
+  }
+
+  .list__item .archive__item,
+  .grid__item .archive__item {
+    border-color: $dm-border;
+  }
+
+  /* footer */
+  .page__footer {
+    background-color: $dm-surface;
+    border-top-color: $dm-border;
+    color: $dm-text-muted;
+
+    a { color: $dm-text-muted; &:hover { color: $dm-text; } }
+  }
+
+  /* forms */
+  input, textarea, select {
+    background-color: $dm-surface-2 !important;
+    color: $dm-text !important;
+    border-color: $dm-border !important;
+  }
+
+  /* tables */
+  table {
+    border-color: $dm-border;
+
+    tr { background: $dm-bg; }
+    th { background-color: $dm-surface; border-color: $dm-border; }
+    td, th { border-color: $dm-border; }
+  }
+
+  /* notices / callouts */
+  .notice, .notice--primary, .notice--info, .notice--warning, .notice--success, .notice--danger {
+    background-color: $dm-surface-2 !important;
+    color: $dm-text;
+  }
+
+  /* toc + pagination widgets */
+  .toc {
+    background-color: $dm-surface;
+    border-color: $dm-border;
+
+    .toc__menu a {
+      color: $dm-text-muted;
+      border-bottom-color: $dm-border;
+
+      &:hover { color: $dm-text; background: $dm-surface-2; }
+    }
+  }
+
+  .pagination li a {
+    border-color: $dm-border;
+    color: $dm-text-muted;
+  }
+
+  /* this site's custom portfolio components */
+  .mv-project-card {
+    background: $dm-surface;
+    border-color: $dm-border;
+  }
+
+  .mv-tag {
+    background: rgba(6, 182, 212, 0.15);
+    color: var(--mv-accent-2);
+  }
+
+  .mv-pill {
+    border-color: $dm-border;
+    color: $dm-text;
+
+    &:hover { border-color: var(--mv-accent-2); color: var(--mv-accent-2); }
+  }
+
+  .mv-timeline { border-left-color: $dm-border; }
+
+  .mv-timeline-meta,
+  .mv-skill-group-title { color: $dm-text-muted; }
+
+  /* theme toggle button itself */
+  .theme-toggle {
+    color: $dm-text;
+
+    &:hover { color: var(--mv-accent-2); }
+
+    .fa-sun { display: inline-block; }
+    .fa-moon { display: none; }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    @include dark-theme-colors;
+  }
+}
+
+html[data-theme="dark"] {
+  @include dark-theme-colors;
+}
+
+/* toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  position: absolute;
+  top: 50%;
+  right: 3.25em;
+  transform: translateY(-50%);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: $primary-color;
+  cursor: pointer;
+  font-size: 1.1em;
+  z-index: 21;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $link-color-hover;
+  }
+
+  .fa-sun { display: none; }
+  .fa-moon { display: inline-block; }
+}

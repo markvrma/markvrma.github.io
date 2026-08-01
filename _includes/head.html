@@ -13,6 +13,10 @@
 
 <script>
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  try {
+    var mvTheme = localStorage.getItem('theme');
+    if (mvTheme) document.documentElement.setAttribute('data-theme', mvTheme);
+  } catch (e) {}
 </script>
 
 <!-- For all browsers -->

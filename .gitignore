@@ -10,3 +10,8 @@ Gemfile.lock
 # Ingore files created by npm
 node_modules
 package-lock.json
+
+# Local bundler/ruby artifacts and local-only Jekyll config override
+.bundle/
+vendor/
+_config_local.yml

@@ -8,10 +8,10 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Mark's Homepage"
+title                    : "Mark Verma"
 title_separator          : "-"
 name                     : &name "Mark Verma"
-description              : &description "Curious about everything AI/ML"
+description              : &description "Data Science Engineer — MLOps, ML systems, and building things from first principles"
 url                      : https://markvrma.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "markvrma/markvrma.github.io"
@@ -23,12 +23,12 @@ author:
   # Biographic information
   avatar           : "markvrma.jpg"
   name             : "Mark Verma"
-  pronouns         : "he/him"  
-  bio              : "Machine Learning Engineer"
-  location         : "Kochi, India"
-  employer         : "Banach Technologies"
+  pronouns         : "he/him"
+  bio              : "Data Science Engineer building MLOps pipelines & systems"
+  location         : "Bengaluru, India"
+  employer         : "314e Corp"
   uri              : # URL
-  email            : "markvrma@gmail.com" 
+  email            : "markvrma@gmail.com"
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
@@ -57,9 +57,9 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : # Username
+  linkedin         : "markvrma"
   mastodon         : # URL
-  medium           : # URL
+  medium           : "https://markvrma.medium.com/"
   pinterest        : # Username
   soundcloud       : # Username
   steam            : # Username
