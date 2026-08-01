@@ -137,9 +137,9 @@ social:
 
 # Analytics
 analytics:
-  provider               :  "false" # false (default), "google", "google-universal", "google-analytics-4", "custom"
+  provider               :  "google-analytics-4" # false (default), "google", "google-universal", "google-analytics-4", "custom"
   google:
-    tracking_id          :
+    tracking_id          : # e.g. "G-XXXXXXXXXX" - get one free at analytics.google.com (Admin > Create Property), then paste it here
 
 
 # Reading Files
