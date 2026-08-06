@@ -292,9 +292,15 @@ p > code, li > code, a > code {
   color: var(--rt-ink) !important;
   animation: none !important;
   font-weight: 700;
-  text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-underline-offset: 4px;
+  text-decoration: none;
+}
+
+/* the intro paragraph reads cleaner with no rules under it, weight alone
+   carries the link there */
+.page__content > .mv-reveal:first-of-type a,
+.page__content > .mv-reveal:first-of-type a:visited {
+  text-decoration: none;
+  font-weight: 700;
 }
 
 .mv-section-title {

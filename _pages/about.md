@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hi, I'm Mark 👋"
+title: "Hi, I'm Mark"
 author_profile: true
 excerpt: "Data Science Engineer — MLOps, ML systems, and building things from first principles"
 redirect_from:
