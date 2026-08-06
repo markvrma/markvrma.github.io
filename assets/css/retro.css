@@ -1,0 +1,408 @@
+/* ==========================================================================
+   RETRO — 16 bit desktop styling, professional edition
+
+   Loaded after main.css so it overrides the theme without touching the sass.
+   Rules: times new roman for prose, hard black lines, eggshell or dull black
+   backgrounds, colour only as an accent, emphasis carried by weight, italics
+   and underlines rather than by colour.
+   ========================================================================== */
+
+:root {
+  --rt-bg: #f0ebe0;
+  --rt-surface: #faf7ef;
+  --rt-sunk: #e5dfd1;
+  --rt-ink: #14120f;
+  --rt-line: #14120f;
+  --rt-muted: #5f584c;
+  --rt-accent: #a8341f;
+  --rt-accent-2: #1b5f57;
+  --rt-shadow: 4px 4px 0 var(--rt-line);
+  --rt-shadow-sm: 3px 3px 0 var(--rt-line);
+}
+
+html[data-theme="dark"] {
+  --rt-bg: #17171a;
+  --rt-surface: #202027;
+  --rt-sunk: #16161b;
+  --rt-ink: #ece6da;
+  --rt-line: #ece6da;
+  --rt-muted: #a39b8c;
+  --rt-accent: #e2765f;
+  --rt-accent-2: #6fbfb3;
+  --rt-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
+  --rt-shadow-sm: 3px 3px 0 rgba(0, 0, 0, 0.75);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --rt-bg: #17171a;
+    --rt-surface: #202027;
+    --rt-sunk: #16161b;
+    --rt-ink: #ece6da;
+    --rt-line: #ece6da;
+    --rt-muted: #a39b8c;
+    --rt-accent: #e2765f;
+    --rt-accent-2: #6fbfb3;
+    --rt-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
+    --rt-shadow-sm: 3px 3px 0 rgba(0, 0, 0, 0.75);
+  }
+}
+
+/* --------------------------------------------------------------- type */
+
+/* everything is times, including chrome the theme styles with its own stack */
+body, body * {
+  font-family: "Times New Roman", Times, serif !important;
+}
+
+/* code stays monospace, times new roman on code is unreadable */
+code, kbd, samp, pre, tt, var,
+.highlight, .highlight *, div.highlighter-rouge, div.highlighter-rouge * {
+  font-family: "Courier New", Courier, monospace !important;
+}
+
+.page, .page__inner-wrap, .page__content, .archive, .sidebar, .sidebar__right,
+#main, .initial-content, .layout--single, .masthead__inner-wrap, .greedy-nav,
+.author__content, .author__urls-wrapper {
+  background-color: transparent !important;
+}
+
+.author__urls {
+  border: 2px solid var(--rt-line);
+  border-radius: 0;
+  background: var(--rt-surface);
+  box-shadow: var(--rt-shadow-sm);
+  padding: 0.6em 0.8em;
+}
+
+.author__urls::before, .author__urls::after { display: none }
+
+/* html paints the area below a short body, it was still theme white */
+html { background-color: var(--rt-bg) !important; }
+
+.greedy-nav .navicon,
+.greedy-nav .navicon::before,
+.greedy-nav .navicon::after { background: var(--rt-ink) !important; }
+
+.greedy-nav .hidden-links {
+  background: var(--rt-surface) !important;
+  border: 2px solid var(--rt-line);
+  border-radius: 0;
+  box-shadow: var(--rt-shadow-sm);
+}
+
+.greedy-nav .hidden-links::before { display: none }
+
+body {
+  background-color: var(--rt-bg) !important;
+  color: var(--rt-ink);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+h1, h2, h3, h4, h5, h6,
+.page__title, .archive__item-title, .author__name,
+.page__content h1, .page__content h2, .page__content h3,
+.page__content h4, .page__content h5, .page__content h6 {
+  color: var(--rt-ink) !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.page__title, .archive__title, .page__content h2 {
+  border-bottom: 3px solid var(--rt-line);
+  padding-bottom: 0.2em;
+}
+
+.page__meta, .page__meta a, .mv-timeline-meta, .mv-skill-group-title,
+.archive__item-excerpt, .page__footer, .page__footer a, .author__bio {
+  color: var(--rt-muted) !important;
+}
+
+strong, b { font-weight: 700 }
+em, i:not([class*="fa-"]) { font-style: italic }
+
+/* --------------------------------------------------------------- links */
+
+a, a:visited,
+.page__content a, .page__content a:visited,
+.archive__item-title a, .author__urls a, .greedy-nav a {
+  color: var(--rt-ink) !important;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+a:hover, a:focus,
+.page__content a:hover, .archive__item-title a:hover, .author__urls a:hover {
+  background: var(--rt-ink);
+  color: var(--rt-bg) !important;
+  text-decoration: none;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--rt-accent);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------- chrome */
+
+.masthead {
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0 2px, transparent 2px 5px),
+    var(--rt-surface);
+  border-bottom: 3px solid var(--rt-line);
+}
+
+.greedy-nav { background: transparent }
+
+.greedy-nav a { padding: 0.5em 0.7em }
+
+.greedy-nav .visible-links li a {
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+.greedy-nav .visible-links li a:hover {
+  border-color: var(--rt-line);
+  background: var(--rt-ink);
+  color: var(--rt-bg) !important;
+}
+
+.greedy-nav .visible-links li:first-child a { font-weight: 700 }
+
+.greedy-nav .visible-links li::before,
+.greedy-nav__toggle::before { display: none }
+
+.greedy-nav button, .theme-toggle {
+  background: var(--rt-surface);
+  border: 2px solid var(--rt-line);
+  border-radius: 0;
+  box-shadow: var(--rt-shadow-sm);
+  color: var(--rt-ink);
+}
+
+/* keep the toggle clear of the hamburger, both have hard shadows now */
+.theme-toggle { margin-right: 0.5em }
+
+.theme-toggle:hover { background: var(--rt-ink); color: var(--rt-bg) }
+.theme-toggle:active { transform: translate(2px, 2px); box-shadow: none }
+
+.page__footer {
+  background: var(--rt-surface);
+  border-top: 3px solid var(--rt-line);
+}
+
+.page__footer-follow .social-icons a { text-decoration: none }
+
+/* --------------------------------------------------------------- panels */
+
+.sidebar .author__avatar img {
+  border: 3px solid var(--rt-line);
+  border-radius: 0;
+  box-shadow: var(--rt-shadow);
+  padding: 0;
+}
+
+.author__urls.social-icons li { padding: 0.15em 0 }
+
+.archive__item {
+  border: 3px solid var(--rt-line);
+  background: var(--rt-surface);
+  box-shadow: var(--rt-shadow);
+  padding: 1em 1.1em;
+  margin-bottom: 1.4em;
+}
+
+.archive__item-teaser { border: 2px solid var(--rt-line); border-radius: 0 }
+
+.notice, .notice--primary, .notice--info, .notice--warning, .notice--success, .notice--danger {
+  background: var(--rt-sunk) !important;
+  border: 3px solid var(--rt-line) !important;
+  border-left-width: 10px !important;
+  border-radius: 0;
+  box-shadow: var(--rt-shadow-sm);
+  color: var(--rt-ink) !important;
+}
+
+blockquote {
+  border-left: 10px solid var(--rt-accent);
+  background: var(--rt-sunk);
+  padding: 0.6em 1em;
+  font-style: italic;
+}
+
+hr { border: 0; border-top: 3px solid var(--rt-line) }
+
+table { border: 3px solid var(--rt-line) }
+th { background: var(--rt-sunk); border: 2px solid var(--rt-line) }
+td { border: 2px solid var(--rt-line) }
+
+pre, .highlight, div.highlighter-rouge {
+  border: 3px solid var(--rt-line) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--rt-shadow-sm);
+}
+
+p > code, li > code, a > code {
+  border: 2px solid var(--rt-line);
+  border-radius: 0;
+  background: var(--rt-sunk);
+  padding: 0 0.25em;
+}
+
+/* --------------------------------------------------------------- buttons */
+
+.btn, .btn--primary, .btn--info, .btn--success, .btn--inverse, .pagination a {
+  background: var(--rt-surface) !important;
+  color: var(--rt-ink) !important;
+  border: 2px solid var(--rt-line) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--rt-shadow-sm);
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.btn:hover, .pagination a:hover {
+  background: var(--rt-ink) !important;
+  color: var(--rt-bg) !important;
+}
+
+.btn:active, .pagination a:active { transform: translate(2px, 2px); box-shadow: none }
+
+/* --------------------------------------------------------------- custom bits */
+
+/* the animated gradient headline was colour-as-emphasis, this is weight instead */
+.mv-tagline {
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: var(--rt-ink) !important;
+  animation: none !important;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+.mv-section-title {
+  border-bottom: 4px solid var(--rt-line);
+  padding-bottom: 0.2em;
+}
+
+.mv-section-title::before {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.45em;
+  background: var(--rt-accent);
+  vertical-align: 0.05em;
+}
+
+.mv-timeline { border-left: 3px solid var(--rt-line) }
+
+.mv-timeline-item::before {
+  border-radius: 0 !important;
+  width: 11px !important;
+  height: 11px !important;
+  left: -1.95em !important;
+  background: var(--rt-ink) !important;
+  box-shadow: none !important;
+  border: 2px solid var(--rt-line);
+}
+
+.mv-timeline-item--current::before {
+  background: var(--rt-accent) !important;
+}
+
+.mv-badge, .mv-tag, .mv-pill {
+  border-radius: 0 !important;
+  border: 2px solid var(--rt-line) !important;
+  background: var(--rt-surface) !important;
+  color: var(--rt-ink) !important;
+  font-weight: 700;
+  padding: 0.1em 0.5em;
+}
+
+.mv-badge { background: var(--rt-sunk) !important; font-style: italic }
+
+.mv-pill:hover, .mv-tag:hover {
+  background: var(--rt-ink) !important;
+  color: var(--rt-bg) !important;
+  transform: none;
+}
+
+.mv-project-card {
+  border: 3px solid var(--rt-line);
+  border-radius: 0;
+  background: var(--rt-surface);
+  box-shadow: var(--rt-shadow);
+  transition: transform 0.12s steps(2), box-shadow 0.12s steps(2);
+}
+
+.mv-project-card::before {
+  background: var(--rt-accent) !important;
+  height: 5px !important;
+  transition: transform 0.12s steps(3) !important;
+}
+
+.mv-project-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0 var(--rt-line);
+  border-color: var(--rt-line);
+}
+
+html[data-theme="dark"] .mv-project-card:hover,
+html[data-theme="dark"] .archive__item { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75) }
+
+.mv-project-links a { text-decoration: underline }
+
+/* --------------------------------------------------------------- icons */
+
+/* font awesome glyphs swapped for 16x16 pixel art. the mask keeps them the
+   colour of the surrounding text, so icons follow the theme for free. */
+.fa-github::before, .fa-linkedin::before, .fa-medium::before, .fa-envelope::before,
+.fa-location-dot::before, .fa-building-columns::before, .fa-rss-square::before,
+.fa-moon::before, .fa-sun::before, .fa-clock-o::before, .fa-calendar::before {
+  content: "" !important;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  image-rendering: pixelated;
+}
+
+.fa-github::before,
+.fa-github::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%225%22%20y%3D%221%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%223%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%223%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%227%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%227%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2210%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%223%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%225%22%20y%3D%221%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%223%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%223%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%227%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%227%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2210%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%223%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-linkedin::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%226%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%227%22%20width%3D%222%22%20height%3D%225%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%226%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%227%22%20width%3D%222%22%20height%3D%225%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-medium::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%224%22%20width%3D%224%22%20height%3D%228%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%221%22%20height%3D%228%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%224%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2211%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%225%22%20width%3D%221%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%225%22%20width%3D%221%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%224%22%20width%3D%222%22%20height%3D%228%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%224%22%20width%3D%224%22%20height%3D%228%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%221%22%20height%3D%228%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%224%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2211%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%225%22%20width%3D%221%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%225%22%20width%3D%221%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%224%22%20width%3D%222%22%20height%3D%228%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-envelope::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%223%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2212%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%223%22%20width%3D%221%22%20height%3D%2210%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%223%22%20width%3D%221%22%20height%3D%2210%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%223%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2212%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%223%22%20width%3D%221%22%20height%3D%2210%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%223%22%20width%3D%221%22%20height%3D%2210%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-location-dot::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%225%22%20y%3D%221%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%223%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%223%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%226%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%226%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%228%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%228%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%224%22%20height%3D%223%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%225%22%20y%3D%221%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%223%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%223%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%226%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%226%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%228%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%228%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%224%22%20height%3D%223%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-building-columns::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%227%22%20y%3D%221%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%222%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2210%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2212%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%2212%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2213%22%20width%3D%2214%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%227%22%20y%3D%221%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%222%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2210%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2212%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%226%22%20width%3D%222%22%20height%3D%226%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%2212%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2213%22%20width%3D%2214%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-rss-square::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%228%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%227%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%229%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%2214%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%228%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%227%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%229%22%20width%3D%221%22%20height%3D%223%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-moon::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%225%22%20y%3D%222%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%223%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%226%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%226%22%20width%3D%222%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2212%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2213%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%225%22%20y%3D%222%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%223%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%224%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%225%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%226%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%226%22%20width%3D%222%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2212%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2213%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-sun::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%227%22%20y%3D%220%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%227%22%20width%3D%223%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%227%22%20width%3D%223%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%226%22%20width%3D%228%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2210%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2211%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%227%22%20y%3D%220%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%227%22%20width%3D%223%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%227%22%20width%3D%223%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%226%22%20width%3D%228%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2210%22%20width%3D%226%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2211%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-clock-o::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%226%22%20y%3D%221%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%224%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%226%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%226%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%2212%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%227%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%226%22%20y%3D%221%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%222%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%224%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%226%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%226%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2213%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%2212%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%224%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%221%22%20height%3D%224%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%227%22%20width%3D%223%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E"); }
+.fa-calendar::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%221%22%20height%3D%2213%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%222%22%20width%3D%221%22%20height%3D%2213%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%2214%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%220%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%220%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%227%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%227%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%20fill%3D%22%23000%22%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%221%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%221%22%20height%3D%2213%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%222%22%20width%3D%221%22%20height%3D%2213%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%2214%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%220%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%220%22%20width%3D%222%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%227%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%227%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E"); }
+
+/* brand colours off the icons, colour is for accents only */
+i[class*="fa-"], .author__urls i, .social-icons i, .page__footer-follow i, .page__meta i {
+  color: currentColor !important;
+}
+
+img, .archive__item-teaser img, .author__avatar img { image-rendering: auto }
+
+/* --------------------------------------------------------------- motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-project-card { transition: none }
+}
