@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /kanban/
+
+Sitemap: https://markvrma.github.io/sitemap.xml
