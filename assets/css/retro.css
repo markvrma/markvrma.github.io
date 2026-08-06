@@ -50,16 +50,15 @@ html[data-theme="dark"] {
 
 /* --------------------------------------------------------------- type */
 
-/* everything is times, including chrome the theme styles with its own stack */
+/* one compact monospace stack for everything, chrome included. ui-monospace
+   picks up SF Mono on mac and Roboto Mono on android, both narrower than
+   Courier, which keeps lines from running long. */
 body, body * {
-  font-family: "Times New Roman", Times, serif !important;
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace !important;
+  font-variant-ligatures: none;
 }
 
-/* code stays monospace, times new roman on code is unreadable */
-code, kbd, samp, pre, tt, var,
-.highlight, .highlight *, div.highlighter-rouge, div.highlighter-rouge * {
-  font-family: "Courier New", Courier, monospace !important;
-}
 
 .page, .page__inner-wrap, .page__content, .archive, .sidebar, .sidebar__right,
 #main, .initial-content, .layout--single, .masthead__inner-wrap, .greedy-nav,
@@ -96,6 +95,9 @@ html { background-color: var(--rt-bg) !important; }
 body {
   background-color: var(--rt-bg) !important;
   color: var(--rt-ink);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -107,8 +109,17 @@ h1, h2, h3, h4, h5, h6,
 .page__content h4, .page__content h5, .page__content h6 {
   color: var(--rt-ink) !important;
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
+
+/* mono headings at theme sizes are enormous, pull them back */
+.page__title, .archive__title { font-size: 1.7em }
+.page__content h2, .mv-section-title { font-size: 1.35em }
+.page__content h3 { font-size: 1.15em }
+.page__content p, .page__content li { font-size: 0.95em }
+.page__meta, .mv-timeline-meta, .archive__item-excerpt { font-size: 0.8em }
+.mv-tag, .mv-pill, .mv-badge, .mv-skill-group-title { font-size: 0.72em; letter-spacing: 0 }
 
 .page__title, .archive__title, .page__content h2 {
   border-bottom: 3px solid var(--rt-line);
