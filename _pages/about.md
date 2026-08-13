@@ -27,7 +27,7 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 <li>Reduced model cold-start time by <strong>77%</strong> by optimizing the serving process and pre-packaging assets into the runtime.</li>
 <li>Built a benchmarking suite for Vision-Language Models logged on <strong>ClearML</strong>, and reported a critical bug in Google's Gemma 3 VLM (Flash-Attention SDPA implementation).</li>
 </ul>
-<p>Engineering writeups of this platform, by my colleague Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> &nbsp;·&nbsp; <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
+<p>Engineering writeups of this platform, which I contributed to — published by 314e, authored by Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> &nbsp;·&nbsp; <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
 </div>
 
 <div class="mv-timeline-item">
