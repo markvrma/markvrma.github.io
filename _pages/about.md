@@ -92,10 +92,11 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 </div>
 
 <div class="mv-project-card">
-<div class="mv-project-title"><a href="https://github.com/markvrma/resume-parser" target="_blank" rel="noopener">Resume Parser</a></div>
-<div class="mv-tags"><span class="mv-tag">LLMs</span><span class="mv-tag">HuggingFace</span><span class="mv-tag">Streamlit</span></div>
-<div class="mv-project-desc">An end-to-end LLM-powered resume parser with a modular OOP codebase and a Streamlit UI that turns an uploaded resume into structured JSON.</div>
+<div class="mv-project-title"><a href="https://github.com/markvrma/resume-parser" target="_blank" rel="noopener">Resume Check</a></div>
+<div class="mv-tags"><span class="mv-tag">NLI</span><span class="mv-tag">Transformers.js</span><span class="mv-tag">Client-side</span></div>
+<div class="mv-project-desc">Scores a resume against a hand-written hiring rubric, then matches it against a pasted job description with an open-weights NLI model — entirely in the browser, no upload, no backend.</div>
 <div class="mv-project-links">
+<a href="https://resume-parser-theta-azure.vercel.app/" target="_blank" rel="noopener">Live Demo →</a>
 <a href="https://github.com/markvrma/resume-parser" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i>Code</a>
 </div>
 </div>
