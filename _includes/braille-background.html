@@ -15,7 +15,9 @@
   pointer-events: none;
   /* Follows the theme toggle: --rt-ink flips with light and dark. */
   color: var(--rt-ink, #14120f);
-  opacity: 0.12;
+  /* Judged against real body copy on the dark theme: at 0.12 the texture under
+     the letters visibly flattens contrast, at 0.085 it does not. */
+  opacity: 0.085;
 }
 
 .braille-bg pre {
