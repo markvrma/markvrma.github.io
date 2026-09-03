@@ -24,18 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
   targets.forEach(function (el) { observer.observe(el); });
 });
 
-// Dark mode toggle. Explicit user choice (localStorage) always wins over
-// prefers-color-scheme; see the inline script in _includes/head.html that
-// applies it before first paint to avoid a flash of the wrong theme.
+// Dark mode toggle. The inline script in _includes/head.html always stamps
+// data-theme before first paint -- dark unless a stored choice says otherwise --
+// so the attribute is the single source of truth here.
 document.addEventListener("DOMContentLoaded", function () {
   var toggle = document.getElementById("theme-toggle");
   if (!toggle) return;
 
   toggle.addEventListener("click", function () {
-    var current = document.documentElement.getAttribute("data-theme");
-    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var isDark = current ? current === "dark" : systemDark;
-    var next = isDark ? "light" : "dark";
+    var next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
 
     document.documentElement.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}

@@ -13,10 +13,11 @@
 
 <script>
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-  try {
-    var mvTheme = localStorage.getItem('theme');
-    if (mvTheme) document.documentElement.setAttribute('data-theme', mvTheme);
-  } catch (e) {}
+  var mvTheme = null;
+  try { mvTheme = localStorage.getItem('theme'); } catch (e) {}
+  // Dark is the default. A stored choice wins; the system preference does not
+  // get a vote, so a first-time visitor always lands on the intended look.
+  document.documentElement.setAttribute('data-theme', mvTheme || 'dark');
 </script>
 
 <!-- For all browsers -->

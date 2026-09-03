@@ -34,16 +34,12 @@
   user-select: none;
 }
 
-/* Lift the page above the field. Only #main needs a position -- it is static,
-   so z-index alone would do nothing. The masthead is already fixed and the
-   footer already absolute (the theme's sticky-footer fix), and forcing either
-   to relative drops it out of that layout and leaves dead scrollable space
-   below the footer. */
-.masthead,
-.page__footer {
-  z-index: 1;
-}
-
+/* Lift the page above the field. Only #main needs touching: it is static, so a
+   z-index alone would do nothing. Leave the masthead and footer entirely alone
+   -- both are already positioned by the theme (fixed, and absolute for the
+   sticky-footer fix) and the masthead already sits at z-index 20. Giving them a
+   lower z-index here put them under #main, which then covered the header and
+   swallowed clicks meant for the theme toggle. */
 #main {
   position: relative;
   z-index: 1;
