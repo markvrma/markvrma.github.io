@@ -1,3 +1,43 @@
 {% include base_path %}
 <div class="braille-bg" aria-hidden="true"><pre id="braille-bg"></pre></div>
+
+<style>
+/* Inline, not in retro.css: the stylesheet is cached separately from the page,
+   and a stale copy would leave this <pre> unstyled and in normal flow, dumping a
+   wall of braille above the content. Shipping the rules with the markup keeps
+   the two in step. Block comments survive the compress layout; // comments in
+   JS do not, which is why the script is a separate file. */
+.braille-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Follows the theme toggle: --rt-ink flips with light and dark. */
+  color: var(--rt-ink, #14120f);
+  opacity: 0.12;
+}
+
+.braille-bg pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: "Menlo", "DejaVu Sans Mono", "Segoe UI Symbol", monospace;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
+}
+
+.masthead,
+#main,
+.page__footer {
+  position: relative;
+  z-index: 1;
+}
+</style>
+
 <script src="{{ base_path }}/assets/js/braille-background.js" defer></script>
