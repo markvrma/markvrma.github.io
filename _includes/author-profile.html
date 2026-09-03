@@ -18,8 +18,9 @@
     {% comment %}
       A caption for the photo rather than the author's name -- the name is
       already in the masthead, the page title and the schema.org markup below.
+      It borrows author__pronouns so it matches the line under it exactly.
     {% endcomment %}
-    <h3 class="author__name">me waiting for food</h3>
+    <p class="author__pronouns author__caption">me having fun</p>
     {% if author.pronouns %}<p class="author__pronouns">{{ author.pronouns }}</p>{% endif %}
     {% if author.bio %}<p class="author__bio">{{ author.bio }}</p>{% endif %}
   </div>

@@ -121,11 +121,6 @@ h1, h2, h3, h4, h5, h6,
 .page__meta, .mv-timeline-meta, .archive__item-excerpt { font-size: 0.8em }
 .mv-tag, .mv-pill, .mv-badge, .mv-skill-group-title { font-size: 0.72em; letter-spacing: 0 }
 
-.page__title, .archive__title, .page__content h2 {
-  border-bottom: 3px solid var(--rt-line);
-  padding-bottom: 0.2em;
-}
-
 .page__meta, .page__meta a, .mv-timeline-meta, .mv-skill-group-title,
 .archive__item-excerpt, .page__footer, .page__footer a, .author__bio {
   color: var(--rt-muted) !important;
@@ -304,7 +299,6 @@ p > code, li > code, a > code {
 }
 
 .mv-section-title {
-  border-bottom: 4px solid var(--rt-line);
   padding-bottom: 0.2em;
 }
 
@@ -422,4 +416,12 @@ img, .archive__item-teaser img, .author__avatar img { image-rendering: auto }
 
 @media (prefers-reduced-motion: reduce) {
   .mv-project-card { transition: none }
+}
+
+/* The sidebar photo caption: same size as the pronouns line beneath it. */
+.sidebar .author__caption {
+  font-size: inherit;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0;
 }
