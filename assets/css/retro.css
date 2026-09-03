@@ -418,9 +418,10 @@ img, .archive__item-teaser img, .author__avatar img { image-rendering: auto }
   .mv-project-card { transition: none }
 }
 
-/* The sidebar photo caption: same size as the pronouns line beneath it. */
+/* The sidebar photo caption. It carries author__pronouns for its size and
+   spacing, so this only adds the italics -- setting a size here would override
+   the very thing it is meant to match. */
 .sidebar .author__caption {
-  font-size: inherit;
   font-weight: 400;
   font-style: italic;
   letter-spacing: 0;
