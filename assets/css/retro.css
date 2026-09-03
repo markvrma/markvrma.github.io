@@ -423,3 +423,43 @@ img, .archive__item-teaser img, .author__avatar img { image-rendering: auto }
 @media (prefers-reduced-motion: reduce) {
   .mv-project-card { transition: none }
 }
+
+/* --------------------------------------------------------------------------
+   Braille spiral field
+
+   html and body both paint an opaque background, so a negative z-index would
+   bury the layer under them. It sits at 0 instead, and the page's top-level
+   blocks are lifted above it.
+   -------------------------------------------------------------------------- */
+
+.braille-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Follows the theme toggle: --rt-ink flips with light and dark. */
+  color: var(--rt-ink, #14120f);
+  opacity: 0.12;
+}
+
+.braille-bg pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: "Menlo", "DejaVu Sans Mono", "Segoe UI Symbol", monospace;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
+}
+
+.masthead,
+#main,
+.page__footer {
+  position: relative;
+  z-index: 1;
+}
