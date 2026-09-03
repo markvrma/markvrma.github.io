@@ -15,8 +15,10 @@
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
   var mvTheme = null;
   try { mvTheme = localStorage.getItem('theme'); } catch (e) {}
-  // Dark is the default. A stored choice wins; the system preference does not
-  // get a vote, so a first-time visitor always lands on the intended look.
+  /* Dark is the default. A stored choice wins; the system preference does not
+     get a vote, so a first-time visitor always lands on the intended look.
+     Block comment, not //: the compress layout puts this whole script on one
+     line, and a line comment would swallow everything after it. */
   document.documentElement.setAttribute('data-theme', mvTheme || 'dark');
 </script>
 
