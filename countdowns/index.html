@@ -19,14 +19,13 @@
   #addBtn{position:fixed;right:24px;bottom:24px;width:52px;height:52px;border-radius:50%;border:none;
     background:var(--ink);color:#fff;font-size:1.8rem;cursor:pointer;line-height:1;box-shadow:0 2px 10px rgba(0,0,0,.25)}
   #addBtn:hover{opacity:.85}
-  #track{display:flex;gap:var(--gap);overflow-x:auto;padding:8px var(--pad) 88px;scroll-snap-type:x mandatory}
-  .card{flex:0 0 calc(50% - var(--gap) / 2);scroll-snap-align:start;border-radius:14px;padding:18px;background:var(--card);
+  #track{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);padding:8px var(--pad) 88px}
+  .card{border-radius:14px;padding:18px;background:var(--card);
     box-shadow:0 1px 4px rgba(0,0,0,.12);position:relative}
   .card .x{font-size:2.4rem;font-weight:700;line-height:1}
   .card .label{margin-top:8px;font-size:.95rem;color:var(--muted);word-break:break-word}
   .card .del{position:absolute;top:8px;right:10px;border:none;background:none;color:var(--muted);cursor:pointer;font-size:1rem}
   .x.red{color:var(--red)} .x.yellow{color:var(--yellow)} .x.green{color:var(--green)} .x.purple{color:var(--purple)}
-  #empty{padding:24px;color:var(--muted)}
   dialog{border:none;border-radius:14px;padding:20px;width:280px;max-width:90vw}
   dialog::backdrop{background:rgba(0,0,0,.4)}
   dialog label{display:block;font-size:.85rem;margin:10px 0 4px}
@@ -44,7 +43,6 @@
   <button id="addBtn" title="add card">+</button>
 </header>
 <div id="track"></div>
-<p id="empty" hidden>no countdowns yet — hit + to add one</p>
 
 <dialog id="dlg">
   <form id="form">
@@ -90,10 +88,7 @@ function render() {
   if (kept.length !== cards.length) { save(kept.map(({x, ...c}) => c)); cards = kept; }
 
   const track = document.getElementById("track");
-  const empty = document.getElementById("empty");
   track.innerHTML = "";
-  if (!cards.length) { empty.hidden = false; return; }
-  empty.hidden = true;
 
   cards
     .sort((a, b) => a.x - b.x)
