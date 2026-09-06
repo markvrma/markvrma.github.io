@@ -51,7 +51,7 @@
     <label>date</label>
     <input type="date" id="fDate">
     <label>or days from today</label>
-    <input type="number" id="fDays" min="0" step="1" placeholder="e.g. 7">
+    <input type="text" id="fDays" inputmode="numeric" placeholder="e.g. 7">
     <div class="row">
       <input type="checkbox" id="fPriority">
       <label for="fPriority" style="margin:0">high priority (purple)</label>
@@ -115,10 +115,11 @@ document.getElementById("addBtn").addEventListener("click", () => {
 document.getElementById("cancelBtn").addEventListener("click", () => dlg.close());
 document.getElementById("form").addEventListener("submit", (e) => {
   e.preventDefault();
-  const daysVal = document.getElementById("fDays").value;
+  const daysVal = document.getElementById("fDays").value.trim();
   const dateVal = document.getElementById("fDate").value;
   let date;
   if (daysVal !== "") {
+    if (!/^-?\d+$/.test(daysVal)) { alert("days must be a whole number"); return; }
     const d = new Date(); d.setHours(0,0,0,0);
     d.setDate(d.getDate() + Number(daysVal));
     date = d.toISOString().slice(0, 10);
