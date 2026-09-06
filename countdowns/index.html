@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>countdowns</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --ink:#1a1a1a; --card:#f0ead6; /* egg white */
+    --red:#d9362e; --yellow:#e0a300; --green:#2e9e4c; --purple:#7b2fd6;
+    --muted:#8a8577;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px}
+  h1{font-size:1.2rem;margin:0}
+  #addBtn{width:40px;height:40px;border-radius:50%;border:none;background:var(--ink);color:#fff;font-size:1.4rem;cursor:pointer;line-height:1}
+  #addBtn:hover{opacity:.85}
+  #track{display:flex;gap:16px;overflow-x:auto;padding:8px 24px 32px;scroll-snap-type:x proximity}
+  .card{flex:0 0 190px;scroll-snap-align:start;border-radius:14px;padding:18px;background:var(--card);
+    box-shadow:0 1px 4px rgba(0,0,0,.12);position:relative}
+  .card .x{font-size:2.4rem;font-weight:700;line-height:1}
+  .card .label{margin-top:8px;font-size:.95rem;color:var(--muted);word-break:break-word}
+  .card .del{position:absolute;top:8px;right:10px;border:none;background:none;color:var(--muted);cursor:pointer;font-size:1rem}
+  .x.red{color:var(--red)} .x.yellow{color:var(--yellow)} .x.green{color:var(--green)} .x.purple{color:var(--purple)}
+  #empty{padding:24px;color:var(--muted)}
+  dialog{border:none;border-radius:14px;padding:20px;width:280px;max-width:90vw}
+  dialog::backdrop{background:rgba(0,0,0,.4)}
+  dialog label{display:block;font-size:.85rem;margin:10px 0 4px}
+  dialog input[type=text],dialog input[type=date]{width:100%;padding:8px;border:1px solid #ccc;border-radius:8px;font-size:1rem}
+  dialog .row{display:flex;align-items:center;gap:8px;margin-top:12px}
+  dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+  button{font-family:inherit}
+  .btn{padding:8px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;cursor:pointer}
+  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <h1>countdowns</h1>
+  <button id="addBtn" title="add card">+</button>
+</header>
+<div id="track"></div>
+<p id="empty" hidden>no countdowns yet — hit + to add one</p>
+
+<dialog id="dlg">
+  <form id="form">
+    <label>event</label>
+    <input type="text" id="fLabel" required placeholder="e.g. launch">
+    <label>date</label>
+    <input type="date" id="fDate" required>
+    <div class="row">
+      <input type="checkbox" id="fPriority">
+      <label for="fPriority" style="margin:0">high priority (purple)</label>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" id="cancelBtn">cancel</button>
+      <button type="submit" class="btn primary">add</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+const KEY = "countdowns.cards";
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+const save = (cards) => localStorage.setItem(KEY, JSON.stringify(cards));
+
+// days remaining from today (local midnight) to target date, ceil so "today" = 0
+function daysUntil(dateStr) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const target = new Date(dateStr + "T00:00:00");
+  return Math.ceil((target - today) / 86400000);
+}
+
+function colorClass(x, priority) {
+  if (priority) return "purple";
+  if (x <= 3) return "red";
+  if (x <= 10) return "yellow";
+  return "green";
+}
+
+function render() {
+  let cards = load().map(c => ({ ...c, x: daysUntil(c.date) }));
+  const kept = cards.filter(c => c.x > -4); // auto-remove once it hits -4
+  if (kept.length !== cards.length) { save(kept.map(({x, ...c}) => c)); cards = kept; }
+
+  const track = document.getElementById("track");
+  const empty = document.getElementById("empty");
+  track.innerHTML = "";
+  if (!cards.length) { empty.hidden = false; return; }
+  empty.hidden = true;
+
+  cards
+    .sort((a, b) => a.x - b.x)
+    .forEach(c => {
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `
+        <button class="del" title="delete">&times;</button>
+        <div class="x ${colorClass(c.x, c.priority)}">${c.x}</div>
+        <div class="label">days to ${c.label}</div>`;
+      el.querySelector(".del").addEventListener("click", () => {
+        save(load().filter(k => k.id !== c.id));
+        render();
+      });
+      track.appendChild(el);
+    });
+}
+
+const dlg = document.getElementById("dlg");
+document.getElementById("addBtn").addEventListener("click", () => {
+  document.getElementById("form").reset();
+  dlg.showModal();
+});
+document.getElementById("cancelBtn").addEventListener("click", () => dlg.close());
+document.getElementById("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const cards = load();
+  cards.push({
+    id: crypto.randomUUID(),
+    label: document.getElementById("fLabel").value.trim(),
+    date: document.getElementById("fDate").value,
+    priority: document.getElementById("fPriority").checked,
+  });
+  save(cards);
+  dlg.close();
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
