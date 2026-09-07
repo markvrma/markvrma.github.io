@@ -19,12 +19,8 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 
 <div class="mv-timeline-item mv-timeline-item--current">
 <div class="mv-timeline-role">314e Corp <span class="mv-badge">Current</span></div>
+<div class="mv-progression">Data Science Engineer (Jan 2025 &ndash; Present) &nbsp;&rarr;&nbsp; Associate Data Science Engineer (Dec 2024 &ndash; Jan 2025) &nbsp;&rarr;&nbsp; Data Science Engineer Intern (Jul 2024 &ndash; Dec 2024)</div>
 <div class="mv-timeline-meta">Bengaluru, India</div>
-<ul class="mv-progression">
-<li><strong>Data Science Engineer</strong><span class="mv-progression-date">Jan 2025 &ndash; Present</span></li>
-<li><strong>Associate Data Science Engineer</strong><span class="mv-progression-date">Dec 2024 &ndash; Jan 2025</span></li>
-<li><strong>Data Science Engineer Intern</strong><span class="mv-progression-date">Jul 2024 &ndash; Dec 2024</span></li>
-</ul>
 <ul>
 <li>Built and owned the <strong>MLOps pipeline</strong> for a clinical patient entity-extraction model serving multiple healthcare clients, raising accuracy from <strong>72% to 94%</strong> on an internal held-out set via a human-in-the-loop retraining loop.</li>
 <li>Orchestrated fault-tolerant training and serving workflows on <strong>Temporal</strong> and <strong>SkyPilot</strong> across <strong>RunPod</strong> and <strong>Hugging Face Endpoints</strong>, standardizing deploys across models.</li>
