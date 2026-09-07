@@ -18,14 +18,20 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 <div class="mv-timeline">
 
 <div class="mv-timeline-item mv-timeline-item--current">
-<div class="mv-timeline-role">Data Science Engineer · 314e Corp <span class="mv-badge">Current</span></div>
-<div class="mv-timeline-meta">Bengaluru, India &nbsp;·&nbsp; Jul 2024 – Present</div>
+<div class="mv-timeline-role">314e Corp <span class="mv-badge">Current</span></div>
+<div class="mv-timeline-meta">Bengaluru, India</div>
+<ul class="mv-progression">
+<li><strong>Data Science Engineer</strong><span class="mv-progression-date">Jan 2025 &ndash; Present</span></li>
+<li><strong>Associate Data Science Engineer</strong><span class="mv-progression-date">Dec 2024 &ndash; Jan 2025</span></li>
+<li><strong>Data Science Engineer Intern</strong><span class="mv-progression-date">Jul 2024 &ndash; Dec 2024</span></li>
+</ul>
 <ul>
-<li>Architected and automated a full-scale <strong>MLOps pipeline</strong> for a patient entity-extraction model, raising accuracy from <strong>72% to 94%</strong>; orchestrated fault-tolerant workflows with <strong>Temporal</strong> and deployed on <strong>SkyPilot</strong>, <strong>Hugging Face Endpoints</strong>, and <strong>RunPod</strong> with a human-in-the-loop refinement system.</li>
-<li>Re-engineered legacy Python scripts into scalable <strong>PySpark</strong> jobs for large-scale FHIR resources across multiple clients, cutting data-loading time by <strong>~80%</strong>.</li>
-<li>Cut model training time from <strong>90 hours to 25 hours</strong> on 500GB+ datasets via targeted hyperparameter tuning, and eliminated OOM errors with a custom memory-efficient iterable dataloader.</li>
-<li>Reduced model cold-start time by <strong>77%</strong> by optimizing the serving process and pre-packaging assets into the runtime.</li>
-<li>Built a benchmarking suite for Vision-Language Models logged on <strong>ClearML</strong>, and reported a critical bug in Google's Gemma 3 VLM (Flash-Attention SDPA implementation).</li>
+<li>Built and owned the <strong>MLOps pipeline</strong> for a clinical patient entity-extraction model serving multiple healthcare clients, raising accuracy from <strong>72% to 94%</strong> on an internal held-out set via a human-in-the-loop retraining loop.</li>
+<li>Orchestrated fault-tolerant training and serving workflows on <strong>Temporal</strong> and <strong>SkyPilot</strong> across <strong>RunPod</strong> and <strong>Hugging Face Endpoints</strong>, standardizing deploys across models.</li>
+<li>Benchmarked open <strong>Vision-Language Models</strong> (incl. Gemma 3) with a reproducible <strong>ClearML</strong> test suite, surfacing a Flash-Attention/SDPA correctness issue in the serving path.</li>
+<li>Cut model <strong>cold-start latency 77%</strong> by pre-packaging weights and tokenizer into the runtime image and warming the serving process.</li>
+<li>Cut model training time from <strong>90 hours to 25 hours</strong> on &gt;500GB datasets via targeted hyperparameter tuning, and eliminated OOM errors with a custom memory-efficient iterable dataloader.</li>
+<li>Re-engineered single-node Python ETL into distributed <strong>PySpark</strong> jobs over <strong>FHIR</strong> resources for multiple clients, cutting data-loading time <strong>~80%</strong> and unblocking training on 500GB+ datasets.</li>
 </ul>
 <p>Engineering writeups of this platform, which I contributed to — published by 314e, authored by Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> &nbsp;·&nbsp; <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
 </div>
