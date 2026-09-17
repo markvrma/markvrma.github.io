@@ -67,6 +67,16 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 <div class="mv-project-grid">
 
 <div class="mv-project-card">
+<div class="mv-project-title"><a href="https://swallow-mocha.vercel.app/" target="_blank" rel="noopener">Swallow</a></div>
+<div class="mv-tags"><span class="mv-tag">FastAPI</span><span class="mv-tag">React 19</span><span class="mv-tag">PostgreSQL</span></div>
+<div class="mv-project-desc">Stop choosing, start watching — rolls a random unseen episode from the shows you follow and never repeats one until the pool is exhausted. Saved &ldquo;controlled random&rdquo; presets narrow the roll to specific shows, seasons, and a maximum episode length. FastAPI + SQLAlchemy 2 over Postgres, Clerk auth, React/Vite frontend, episode data from the TVmaze API.</div>
+<div class="mv-project-links">
+<a href="https://swallow-mocha.vercel.app/" target="_blank" rel="noopener">Live Demo &rarr;</a>
+<a href="https://github.com/markvrma/swallow" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i>Code</a>
+</div>
+</div>
+
+<div class="mv-project-card">
 <div class="mv-project-title"><a href="https://github.com/markvrma/rumpy" target="_blank" rel="noopener">rumpy</a></div>
 <div class="mv-tags"><span class="mv-tag">Rust</span><span class="mv-tag">Systems</span><span class="mv-tag">Benchmarking</span></div>
 <div class="mv-project-desc">A zero-dependency NumPy, written from scratch in pure Rust — same internals as the real thing (flat buffer + shape + strides). Reimplements broadcasting, axis reductions, and matmul from first principles, then benchmarks a cache-friendly <code>ikj</code> loop order against BLAS-backed NumPy. Spec-driven with ~30 milestone tests.</div>
