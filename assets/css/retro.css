@@ -14,7 +14,7 @@
   --rt-ink: #14120f;
   --rt-line: #14120f;
   --rt-muted: #5f584c;
-  --rt-accent: #a8341f;
+  --rt-accent: #3c5f87;
   --rt-accent-2: #1b5f57;
   --rt-shadow: 4px 4px 0 var(--rt-line);
   --rt-shadow-sm: 3px 3px 0 var(--rt-line);
@@ -27,7 +27,7 @@ html[data-theme="dark"] {
   --rt-ink: #ece6da;
   --rt-line: #ece6da;
   --rt-muted: #a39b8c;
-  --rt-accent: #e2765f;
+  --rt-accent: #7fa6cc;
   --rt-accent-2: #6fbfb3;
   --rt-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
   --rt-shadow-sm: 3px 3px 0 rgba(0, 0, 0, 0.75);
@@ -41,7 +41,7 @@ html[data-theme="dark"] {
     --rt-ink: #ece6da;
     --rt-line: #ece6da;
     --rt-muted: #a39b8c;
-    --rt-accent: #e2765f;
+    --rt-accent: #7fa6cc;
     --rt-accent-2: #6fbfb3;
     --rt-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
     --rt-shadow-sm: 3px 3px 0 rgba(0, 0, 0, 0.75);
@@ -319,13 +319,22 @@ p > code, li > code, a > code {
   width: 11px !important;
   height: 11px !important;
   left: -1.95em !important;
-  background: var(--rt-ink) !important;
+  background: var(--rt-ink);
   box-shadow: none !important;
   border: 2px solid var(--rt-line);
 }
 
+/* the marker on the current role blinks like a terminal cursor: hard on/off,
+   no fade, matching the stepped motion used everywhere else. the border stays
+   put so the square keeps its place on the rail while only the fill toggles. */
 .mv-timeline-item--current::before {
-  background: var(--rt-accent) !important;
+  background: var(--rt-accent);
+  animation: rt-blink 1.15s steps(1, end) infinite;
+}
+
+@keyframes rt-blink {
+  0%, 50% { background-color: var(--rt-accent) }
+  51%, 100% { background-color: transparent }
 }
 
 .mv-badge, .mv-tag, .mv-pill {
@@ -416,6 +425,11 @@ img, .archive__item-teaser img, .author__avatar img { image-rendering: auto }
 
 @media (prefers-reduced-motion: reduce) {
   .mv-project-card { transition: none }
+
+  .mv-timeline-item--current::before {
+    animation: none;
+    background: var(--rt-accent);
+  }
 }
 
 /* The sidebar photo caption. It carries author__pronouns for its size and
