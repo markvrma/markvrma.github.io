@@ -2,9 +2,9 @@
 title: "Medical Waste Classification using Deep Learning and Convolutional Neural Networks"
 collection: publications
 permalink: https://ieeexplore.ieee.org/document/10119431/citations?tabFilter=papers#citations
-excerpt: 'The paper looks at Multi-class classification of Medical Waste using Deep Learning and CNNs as part of an automated system to segregate medical waste without the need of human intervention.'
+excerpt: 'First author. Trained a CNN to 98.4% accuracy for medical-waste classification and deployed it as an interactive TensorFlow.js web application. Multi-class classification of medical waste as part of an automated system to segregate it without human intervention. Cited 25 times.'
 date: 2023-05-15
-venue: 'IEEE Xplore'
+venue: 'IEEE IATMSI 2022 (IEEE Xplore) — cited 25 times'
 # slidesurl: 'http://academicpages.github.io/files/slides1.pdf'
 paperurl: 'https://markvrma.github.io/files/publication1.pdf'
 citation: 'M. Verma, A. Kumar and S. Kumar, "Medical Waste Classification using Deep Learning and Convolutional Neural Networks," <i>2022 IEEE Conference on Interdisciplinary Approaches in Technology and Management for Social Innovation (IATMSI)</i>, Gwalior, India, 2022, pp. 1-5, doi: 10.1109/IATMSI56455.2022.10119431. keywords: {Training;Deep learning;Computer vision;Technological innovation;Hospitals;Computational modeling;Transfer learning;Deep Learning;Medical Waste Classification;Transfer Learning;Convolutional Neural Network(CNN)},
