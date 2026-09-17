@@ -19,45 +19,57 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 
 <div class="mv-timeline-item mv-timeline-item--current">
 <div class="mv-timeline-role">314e Corp <span class="mv-badge">Current</span></div>
-<div class="mv-progression">Data Science Engineer (Jan 2025 &ndash; Present) &nbsp;&rarr;&nbsp; Associate Data Science Engineer (Dec 2024 &ndash; Jan 2025) &nbsp;&rarr;&nbsp; Data Science Engineer Intern (Jul 2024 &ndash; Dec 2024)</div>
+<div class="mv-progression">Software Development Engineer (Jan 2025 &ndash; Present) &nbsp;&rarr;&nbsp; Associate Software Development Engineer (Dec 2024 &ndash; Jan 2025) &nbsp;&rarr;&nbsp; Software Development Engineer Intern (Jul 2024 &ndash; Dec 2024)</div>
 <div class="mv-timeline-meta">Bengaluru, India</div>
 <ul>
-<li>Built and owned the <strong>MLOps pipeline</strong> for a clinical patient entity-extraction model serving multiple healthcare clients, raising accuracy from <strong>72% to 94%</strong> on an internal held-out set via a human-in-the-loop retraining loop.</li>
-<li>Orchestrated fault-tolerant training and serving workflows on <strong>Temporal</strong> and <strong>SkyPilot</strong> across <strong>RunPod</strong> and <strong>Hugging Face Endpoints</strong>, standardizing deploys across models.</li>
-<li>Benchmarked open <strong>Vision-Language Models</strong> (incl. Gemma 3) with a reproducible <strong>ClearML</strong> test suite, surfacing a Flash-Attention/SDPA correctness issue in the serving path.</li>
-<li>Cut model <strong>cold-start latency 77%</strong> by pre-packaging weights and tokenizer into the runtime image and warming the serving process.</li>
-<li>Cut model training time from <strong>90 hours to 25 hours</strong> on &gt;500GB datasets via targeted hyperparameter tuning, and eliminated OOM errors with a custom memory-efficient iterable dataloader.</li>
-<li>Re-engineered single-node Python ETL into distributed <strong>PySpark</strong> jobs over <strong>FHIR</strong> resources for multiple clients, cutting data-loading time <strong>~80%</strong> and unblocking training on 500GB+ datasets.</li>
+<li>Built and owned the <strong>entity-extraction ML stack</strong> behind a clinical document-processing product, taking a fine-tuned 27B vision-language model to <strong>0.96 test accuracy</strong> across 26 clinical entity types in production.</li>
+<li>Wrote a 7,600-line model-agnostic <strong>VLM fine-tuning package</strong> on <strong>SkyPilot</strong>, <strong>Temporal</strong> and <strong>ClearML</strong> that trains Gemma 3, Qwen3.5-9B and Qwen3.6-27B through one model-family dispatch layer, rewritten across three generations as the model family changed.</li>
+<li>Built the <strong>human-in-the-loop retraining loop</strong> from reviewer feedback through stratified dataset construction to automated deployment, gated by a per-entity F1 regression check that blocks any model regressing beyond a tolerance scaled to its prior score.</li>
+<li>Built a weekly <strong>accuracy-drift monitor</strong> separating genuine model regression from reviewer labelling-convention change &mdash; two causes indistinguishable in F1 that demand opposite responses &mdash; using an LLM agent over a purpose-built read-only <strong>MCP server</strong> that reads page OCR to check what the document actually says.</li>
+<li>Wrote the schema-driven entity-extraction layer and a per-field <strong>confidence tree</strong> mapping token logprobs to sequence likelihood, spanning 4 LLM providers and 3 inference engines behind one validated output contract.</li>
+<li>Migrated entity-extraction serving from Transformers to <strong>vLLM</strong> to <strong>SGLang</strong> on RunPod serverless, reaching <strong>64 concurrent jobs</strong> per worker with continuous batching, and removed cold-start cost by baking weights into the runtime image and pre-paying triton kernel JIT and vision-encoder initialization with a warmup pass.</li>
+<li>Cut model training time from <strong>90 hours to 25 hours</strong> by replacing an iterable dataset with map-style lazy loading, collapsing per-batch GPU round-trips from N to 1 and deriving batch size from available VRAM, after tracing an 80&nbsp;GB host-RAM exhaustion to a cap that bounded sample count but never bytes.</li>
 </ul>
 <p>Engineering writeups of this platform, which I contributed to — published by 314e, authored by Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> &nbsp;·&nbsp; <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
 </div>
 
 <div class="mv-timeline-item">
-<div class="mv-timeline-role">Machine Learning Intern · <a href="https://www.banach.sg" target="_blank" rel="noopener">Banach Technologies</a></div>
-<div class="mv-timeline-meta">Singapore (Remote) &nbsp;·&nbsp; Apr 2024 – Jul 2024</div>
+<div class="mv-timeline-role">Machine Learning Intern &middot; <a href="https://www.banach.sg" target="_blank" rel="noopener">Banach Technologies</a></div>
+<div class="mv-timeline-meta">Singapore (Remote) &nbsp;&middot;&nbsp; Apr 2024 &ndash; Jul 2024</div>
 <ul>
-<li>Engineered and optimized <strong>high-frequency trading</strong> strategies, reducing data-processing latency through targeted performance tuning.</li>
-<li>Built and deployed ML models from scratch against live market APIs to execute hedging strategies, backed by a comprehensive unittest suite for core trading libraries.</li>
+<li>Built and deployed ML models against live market APIs to execute <strong>hedging strategies</strong>, cutting data-processing latency through targeted performance tuning and covering the core trading libraries with unit tests.</li>
 </ul>
 </div>
 
 <div class="mv-timeline-item">
-<div class="mv-timeline-role">Software / ML Intern · <a href="https://www.alemeno.com" target="_blank" rel="noopener">Alemeno</a></div>
-<div class="mv-timeline-meta">Maharashtra (Remote) &nbsp;·&nbsp; Jul 2023 – Apr 2024</div>
+<div class="mv-timeline-role">Software and ML Intern &middot; <a href="https://www.alemeno.com" target="_blank" rel="noopener">Alemeno</a></div>
+<div class="mv-timeline-meta">Maharashtra (Remote) &nbsp;&middot;&nbsp; Jul 2023 &ndash; Apr 2024</div>
 <ul>
-<li>Built a data-preprocessing pipeline for semantic-segmentation models over large-scale GIS raster data, and implemented distributed computer-vision algorithms (Douglas–Peucker, Jarvis March).</li>
-<li>Deployed scalable Django apps on AWS with an end-to-end CI/CD pipeline, and hardened a high-performance raster-processing app through refactoring and unit tests.</li>
+<li>Built a preprocessing pipeline for <strong>semantic-segmentation</strong> models over large-scale GIS raster data, implementing distributed computer-vision algorithms including Douglas&ndash;Peucker and Jarvis March, and deployed <strong>Django</strong> services on AWS behind end-to-end CI/CD.</li>
 </ul>
 </div>
 
 <div class="mv-timeline-item">
-<div class="mv-timeline-role">Data Analyst · Bewgle</div>
-<div class="mv-timeline-meta">Bengaluru (Remote) &nbsp;·&nbsp; May 2022 – Jul 2022</div>
+<div class="mv-timeline-role">Data Analyst Intern &middot; Bewgle</div>
+<div class="mv-timeline-meta">Bengaluru (Remote) &nbsp;&middot;&nbsp; May 2022 &ndash; Jul 2022</div>
 <ul>
-<li>Applied NLP techniques to proprietary Amazon-review datasets to deliver product-trend insights and predictive models; automated preprocessing in Python/Bash, cutting data redundancy by <strong>90%</strong>.</li>
+<li>Applied <strong>NLP</strong> to proprietary Amazon review datasets for product-trend insight, automating preprocessing in Python and Bash to cut data redundancy <strong>90%</strong>.</li>
 </ul>
 </div>
 
+</div>
+</div>
+
+<div class="mv-reveal">
+<span class="mv-section-title">Publication</span>
+
+<div class="mv-project-title"><a href="https://ieeexplore.ieee.org/document/10119431" target="_blank" rel="noopener">Medical Waste Classification using Deep Learning and Convolutional Neural Networks</a></div>
+<div class="mv-timeline-meta">First author &nbsp;&middot;&nbsp; 2022 IEEE Conference on Interdisciplinary Approaches in Technology and Management for Social Innovation (IATMSI), Gwalior, India &nbsp;&middot;&nbsp; <strong>cited 25 times</strong></div>
+<p>Trained a CNN to <strong>98.4% accuracy</strong> for medical-waste classification and deployed it as an interactive TensorFlow.js web application.</p>
+<div class="mv-project-links">
+<a href="https://ieeexplore.ieee.org/document/10119431" target="_blank" rel="noopener">IEEE Xplore &rarr;</a>
+<a href="https://markvrma.github.io/files/publication1.pdf" target="_blank" rel="noopener">PDF</a>
+<a href="https://github.com/markvrma/medical-waste-classifier" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i>Code</a>
 </div>
 </div>
 
