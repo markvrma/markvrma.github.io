@@ -25,7 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 const SUPABASE_URL = "https://tegbmtgkpxyouorazpxr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_7jbVAXgRGLih9iQDSofbYQ_MA5RBBDa";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlZ2JtdGdrcHh5b3VvcmF6cHhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjcyMDksImV4cCI6MjEwNDY0MzIwOX0.Sj3rfYt5iJRF9V4--mFB-L3GO0dY1Ift8LEOW2hV_Bo";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const wall = document.getElementById('wall');
@@ -78,6 +78,12 @@ function makeBlockEl(block) {
     queueSave();
   });
   el.addEventListener('click', e => e.stopPropagation());
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      document.execCommand('insertText', false, '\n');
+    }
+  });
 
   block.el = el;
   wall.appendChild(el);
