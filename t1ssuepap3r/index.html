@@ -81,7 +81,17 @@ function makeBlockEl(block) {
   el.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      document.execCommand('insertText', false, '\n');
+      const sel = window.getSelection();
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      const nl = document.createTextNode('\n');
+      range.insertNode(nl);
+      range.setStartAfter(nl);
+      range.setEndAfter(nl);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      block.text = el.textContent;
+      queueSave();
     }
   });
 
