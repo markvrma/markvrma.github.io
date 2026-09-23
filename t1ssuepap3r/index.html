@@ -16,6 +16,21 @@
   .block{position:absolute;min-width:20px;min-height:1.4em;outline:none;
     font-size:1.05rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-width:80vw}
   .block a{color:var(--link);text-decoration:underline}
+  .block.md{white-space:normal}
+  .block.md > :first-child{margin-top:0}
+  .block.md > :last-child{margin-bottom:0}
+  .block.md p,.block.md ul,.block.md ol,.block.md pre,.block.md blockquote,.block.md table{margin:.4em 0}
+  .block.md h1,.block.md h2,.block.md h3,.block.md h4{margin:.5em 0 .3em;line-height:1.25}
+  .block.md ul,.block.md ol{padding-left:1.4em}
+  .block.md code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;
+    background:rgba(0,0,0,.06);padding:.1em .3em;border-radius:3px}
+  .block.md pre{background:rgba(0,0,0,.06);padding:.5em .7em;border-radius:4px;overflow:auto}
+  .block.md pre code{background:none;padding:0}
+  .block.md blockquote{border-left:3px solid var(--muted);padding-left:.7em;color:var(--muted)}
+  .block.md img{max-width:100%}
+  .block.md table{border-collapse:collapse}
+  .block.md th,.block.md td{border:1px solid var(--muted);padding:.2em .5em}
+  .block.md hr{border:none;border-top:1px solid var(--muted)}
 </style>
 </head>
 <body>
@@ -23,6 +38,8 @@
 <div id="wall"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
 <script>
 const SUPABASE_URL = "https://tegbmtgkpxyouorazpxr.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlZ2JtdGdrcHh5b3VvcmF6cHhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjcyMDksImV4cCI6MjEwNDY0MzIwOX0.Sj3rfYt5iJRF9V4--mFB-L3GO0dY1Ift8LEOW2hV_Bo";
@@ -41,16 +58,42 @@ function escapeHtml(s) {
 
 function linkify(text) {
   return escapeHtml(text).replace(URL_RE, url => {
-    const short = url.length > 8 ? url.slice(0, 8) + '..' : url;
-    return `<a href="${url}" target="_blank" rel="noopener">${short}</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener">${shortUrl(url)}</a>`;
   });
+}
+
+function shortUrl(url) {
+  return url.length > 8 ? url.slice(0, 8) + '..' : url;
+}
+
+// Markdown (GFM, single newlines -> <br>) with inline HTML allowed, sanitized.
+function renderMarkdown(text) {
+  if (!window.marked || !window.DOMPurify) return null;
+  const html = DOMPurify.sanitize(marked.parse(text, { gfm: true, breaks: true }));
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  tmp.querySelectorAll('a[href]').forEach(a => {
+    a.target = '_blank';
+    a.rel = 'noopener';
+    // keep the old behavior of shortening bare URLs
+    if (a.textContent === a.getAttribute('href')) a.textContent = shortUrl(a.textContent);
+  });
+  return tmp.innerHTML;
 }
 
 function renderBlockContent(el, block, editing) {
   if (editing) {
+    el.classList.remove('md');
     el.textContent = block.text;
-  } else {
+    return;
+  }
+  const html = renderMarkdown(block.text);
+  if (html === null) {
+    el.classList.remove('md');
     el.innerHTML = linkify(block.text);
+  } else {
+    el.classList.add('md');
+    el.innerHTML = html;
   }
 }
 
