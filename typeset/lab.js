@@ -57,6 +57,15 @@ function surface(canvas, onResize) {
   return s
 }
 
+// Canvases let the page scroll (touch-action: pan-y). A touch that starts on
+// something draggable cancels the scroll instead, so it can be dragged.
+function grabTouches(canvas, isGrabbable) {
+  canvas.addEventListener('touchstart', e => {
+    const r = canvas.getBoundingClientRect(), t = e.touches[0]
+    if (e.touches.length === 1 && isGrabbable(t.clientX - r.left, t.clientY - r.top)) e.preventDefault()
+  }, { passive: false })
+}
+
 // One rAF loop; scenes only tick while on screen. dt is in 60fps frames.
 const scenes = []
 function scene(el, tick) {
@@ -174,7 +183,8 @@ function heroScene() {
     if (e.pointerType !== 'mouse') ptr.in = false
   })
   canvas.addEventListener('pointerleave', () => { ptr.in = false })
-  canvas.addEventListener('pointercancel', () => { ptr.in = false; ptr.drag = null })
+  canvas.addEventListener('pointercancel', () => { ptr.in = false; ptr.drag = null; ptr.down = null })
+  grabTouches(canvas, (x, y) => hit(x, y) !== null)
 
   function physics(dt, t) {
     const lensOn = ptr.in && !ptr.drag
@@ -377,6 +387,7 @@ function pourScene() {
   canvas.addEventListener('pointerdown', e => { ptr.x = e.offsetX; ptr.y = e.offsetY; ptr.in = true })
   canvas.addEventListener('pointerleave', () => { ptr.in = false })
   canvas.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') ptr.in = false })
+  canvas.addEventListener('pointercancel', () => { ptr.in = false })
 
   const chips = $('#pourChips'), readout = $('#pourReadout')
   const buttons = SHAPES.map((sh, i) => {
@@ -779,6 +790,8 @@ function shatterScene() {
   })
   canvas.addEventListener('pointerup', () => { ptr.handle = false })
   canvas.addEventListener('pointerleave', () => { ptr.x = ptr.y = -999; ptr.over = false })
+  canvas.addEventListener('pointercancel', () => { ptr.x = ptr.y = -999; ptr.over = false; ptr.handle = false })
+  grabTouches(canvas, onHandle)
 
   function tick(dt, t) {
     const { ctx, w, h } = s
