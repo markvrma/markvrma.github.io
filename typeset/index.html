@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>unreflowed — a pretext lab</title>
+<meta name="description" content="Five experiments in typesetting text without asking the DOM, built on chenglou/pretext.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0e0c; --bg2:#171512; --ink:#efe8da; --ink2:#b9b0a0; --muted:#7a7266;
+    --line:#2c2823; --accent:#ff5a36; --accent2:#7fd1b9; --gold:#e8b44a;
+    --serif:"Fraunces", Georgia, serif; --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+    --gutter:clamp(16px, 4vw, 48px);
+  }
+  *{box-sizing:border-box}
+  html{background:var(--bg)}
+  body{margin:0;font-optical-sizing:none;background:var(--bg);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  ::selection{background:var(--accent);color:var(--bg)}
+  canvas{display:block;touch-action:none}
+
+  .topbar{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;
+    padding:12px var(--gutter);font:500 12px/1 var(--mono);letter-spacing:.04em;pointer-events:none}
+  .topbar a{pointer-events:auto;text-decoration:none;color:var(--ink2);padding:6px 10px;border:1px solid var(--line);border-radius:99px;background:rgba(15,14,12,.7);backdrop-filter:blur(6px)}
+  .topbar a:hover{color:var(--ink);border-color:var(--ink2)}
+
+  /* ── hero ── */
+  .hero{position:relative;height:max(560px, 92vh);overflow:hidden;border-bottom:1px solid var(--line);cursor:none}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hero-title{position:absolute;left:var(--gutter);top:clamp(64px, 12vh, 120px);margin:0;pointer-events:none;max-width:min(620px, 84vw)}
+  .hero-title h1{margin:0;font:italic 900 clamp(56px, 11vw, 148px)/.86 var(--serif);letter-spacing:-.035em;color:var(--ink)}
+  .hero-title h1 span{color:var(--accent)}
+  .hero-title p{margin:18px 0 0;font:400 13px/1.55 var(--mono);color:var(--ink2);max-width:430px}
+  .hero-title p b{color:var(--ink);font-weight:600}
+
+  /* ── plates ── */
+  main{max-width:1120px;margin:0 auto;padding:0 var(--gutter)}
+  .plate{padding:clamp(56px, 9vw, 110px) 0 0}
+  .plate-head{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;margin-bottom:22px}
+  .plate-no{font:italic 700 clamp(40px, 6vw, 72px)/1 var(--serif);color:var(--accent);grid-row:span 2}
+  .plate-head h2{margin:0;font:700 clamp(26px, 3.4vw, 40px)/1.05 var(--serif);letter-spacing:-.02em}
+  .plate-head .api{font:400 12px/1.5 var(--mono);color:var(--accent2)}
+  .plate-lede{font:400 17px/1.6 var(--serif);color:var(--ink2);max-width:680px;margin:0 0 22px}
+  .plate-lede code, .note code{font:400 .82em var(--mono);color:var(--ink);background:var(--bg2);padding:1px 5px;border-radius:4px;border:1px solid var(--line)}
+  .stage{position:relative;background:var(--bg2);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;font:400 12px var(--mono);color:var(--ink2)}
+  .chip{font:500 12px var(--mono);color:var(--ink2);background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 12px;cursor:pointer}
+  .chip:hover{color:var(--ink);border-color:var(--ink2)}
+  .chip[aria-pressed="true"]{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+  .chip.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .chip.primary:hover{filter:brightness(1.08)}
+  .readout{margin-left:auto;color:var(--muted)}
+  .readout b{color:var(--accent2);font-weight:600}
+  input[type=range]{accent-color:var(--accent);width:180px}
+  .note{font:400 12px/1.6 var(--mono);color:var(--muted);margin-top:10px;max-width:760px}
+
+  /* pour */
+  #pour{height:clamp(380px, 56vw, 560px)}
+  #pour canvas{width:100%;height:100%;cursor:crosshair}
+
+  /* shrinkwrap */
+  .chats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .chat{padding:18px 16px 22px;min-width:0}
+  .chat-head{display:flex;justify-content:space-between;align-items:baseline;font:500 12px var(--mono);color:var(--ink2);margin-bottom:14px;gap:8px;flex-wrap:wrap}
+  .chat-head .waste{color:var(--accent)}
+  .chat-head .waste.good{color:var(--accent2)}
+  .thread{display:flex;flex-direction:column;gap:8px}
+  .bubble{position:relative;font:400 15px/21px var(--serif);padding:9px 13px;border-radius:16px;overflow-wrap:break-word;word-break:normal;white-space:normal;
+    background:#2a2620;color:var(--ink);align-self:flex-start;border-bottom-left-radius:5px;transition:width .35s cubic-bezier(.2,.8,.2,1)}
+  .bubble.me{align-self:flex-end;background:var(--accent);color:#1b0d08;border-bottom-left-radius:16px;border-bottom-right-radius:5px}
+  .css .bubble{width:fit-content}
+  .bubble .txt{position:relative;z-index:1}
+  .ghost{position:absolute;z-index:0;right:13px;height:21px;
+    background:repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0 2px, transparent 2px 6px);border-radius:3px;pointer-events:none}
+  .bubble.me .ghost{background:repeating-linear-gradient(135deg, rgba(0,0,0,.22) 0 2px, transparent 2px 6px)}
+  @media (max-width:720px){ .chats{grid-template-columns:1fr} }
+
+  /* eval */
+  .eval{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px}
+  .parity{position:relative;aspect-ratio:1/1;max-height:520px}
+  .parity canvas{width:100%;height:100%}
+  .tip{position:absolute;pointer-events:none;font:400 11px/1.45 var(--mono);background:#0b0a09;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:7px 9px;max-width:240px;opacity:0;transition:opacity .12s;z-index:3}
+  .tip b{color:var(--accent2);font-weight:600}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+  .tile{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px}
+  .tile .k{font:400 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .tile .v{font:700 clamp(26px, 3.4vw, 38px)/1.1 var(--serif);margin-top:6px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .tile .s{font:400 11px/1.4 var(--mono);color:var(--ink2);margin-top:4px}
+  .tile.wide{grid-column:span 2}
+  .sample{font:400 15px/21px var(--serif);color:var(--ink2);overflow-wrap:break-word;border-left:2px solid var(--accent);padding-left:10px;margin-top:8px;}
+  #probe{position:absolute;left:-10000px;top:0;visibility:hidden;overflow-wrap:break-word;white-space:normal;word-break:normal;font-family:var(--serif)}
+  @media (max-width:820px){ .eval{grid-template-columns:1fr} }
+
+  /* shatter */
+  #shatter{height:clamp(420px, 52vw, 540px)}
+  #shatter canvas{width:100%;height:100%}
+
+  footer{max-width:1120px;margin:clamp(70px, 10vw, 120px) auto 0;padding:28px var(--gutter) 60px;border-top:1px solid var(--line);
+    font:400 12px/1.7 var(--mono);color:var(--muted);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer a{color:var(--ink2)}
+  .fallback{padding:14px;font:400 13px var(--mono);color:var(--accent)}
+  @media (hover:none){ .hero{cursor:auto} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/">← markvrma</a>
+  <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener">chenglou/pretext ↗</a>
+</div>
+
+<header class="hero" id="hero">
+  <canvas id="heroCanvas" aria-label="Mark Verma's bio, flowing around moving circles"></canvas>
+  <div class="hero-title" id="heroTitle">
+    <h1>unre&shy;flowed<span>.</span></h1>
+    <p>Five experiments in setting type <b>without asking the DOM how big it is</b>. Every line on this page is computed by <b>pretext</b>, then drawn — sixty times a second.</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="plate" id="plate-pour">
+    <div class="plate-head">
+      <div class="plate-no">II</div>
+      <h2>Pour</h2>
+      <div class="api">layoutNextLineRange() · one call per slot · any shape</div>
+    </div>
+    <p class="plate-lede">Text is a liquid if you can ask for one line at a time at any width. Each frame a silhouette is rasterised, sliced into horizontal slots, and pretext fills every slot in reading order. Hover to carve a hole; the paragraph flows around the wound.</p>
+    <div class="stage" id="pour"><canvas id="pourCanvas" aria-label="Text poured into morphing shapes"></canvas></div>
+    <div class="controls" id="pourChips"><span class="readout" id="pourReadout"></span></div>
+  </section>
+
+  <section class="plate" id="plate-wrap">
+    <div class="plate-head">
+      <div class="plate-no">III</div>
+      <h2>Shrinkwrap</h2>
+      <div class="api">walkLineRanges() · binary search · the width CSS can't give you</div>
+    </div>
+    <p class="plate-lede">Once a bubble wraps, <code>width: fit-content</code> snaps to the full <code>max-width</code> and leaves a ragged gutter. The hatching on the left is that gutter, drawn from pretext's own line widths. On the right, a binary search finds the narrowest width that keeps the same number of lines.</p>
+    <div class="chats">
+      <div class="stage chat css"><div class="chat-head"><span>CSS · fit-content</span><span class="waste" id="wasteCss"></span></div><div class="thread" id="threadCss"></div></div>
+      <div class="stage chat tight"><div class="chat-head"><span>pretext · shrinkwrapped</span><span class="waste good" id="wasteTight"></span></div><div class="thread" id="threadTight"></div></div>
+    </div>
+    <div class="controls">
+      <label for="bubbleMax">max-width</label>
+      <input type="range" id="bubbleMax" min="150" max="420" value="300">
+      <span id="bubbleMaxVal">300px</span>
+      <span class="readout" id="wrapReadout"></span>
+    </div>
+  </section>
+
+  <section class="plate" id="plate-eval">
+    <div class="plate-head">
+      <div class="plate-no">IV</div>
+      <h2>The height oracle</h2>
+      <div class="api">prepare() + layout() · vs. offsetHeight · an evaluation</div>
+    </div>
+    <p class="plate-lede">I spend my days evaluating models, so here is one more. Pretext predicts the rendered height of a paragraph from arithmetic alone. The browser supplies ground truth the slow way: it renders the paragraph and we read <code>offsetHeight</code>. Every dot is one paragraph at a random width and size. The diagonal marks a perfect prediction.</p>
+    <div class="eval">
+      <div class="stage parity" id="parity"><canvas id="parityCanvas" aria-label="Scatter plot of predicted versus actual paragraph heights"></canvas><div class="tip" id="parityTip"></div></div>
+      <div class="tiles">
+        <div class="tile"><div class="k">exact match</div><div class="v" id="tExact">—</div><div class="s">predicted = actual, to the px</div></div>
+        <div class="tile"><div class="k">mean abs error</div><div class="v" id="tMae">—</div><div class="s">px, across all samples</div></div>
+        <div class="tile"><div class="k">pretext layout()</div><div class="v" id="tPre">—</div><div class="s" id="tPreS">hot path, no DOM</div></div>
+        <div class="tile"><div class="k">DOM reflow</div><div class="v" id="tDom">—</div><div class="s" id="tDomS">write style → read offsetHeight</div></div>
+        <div class="tile wide"><div class="k">worst sample</div><div class="sample" id="tWorst">Run the eval to see the hardest paragraph.</div></div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="chip primary" id="runEval">run eval · n=400</button>
+      <span class="readout" id="evalReadout">samples are drawn from my CV; fonts are Fraunces at 13–19px</span>
+    </div>
+  </section>
+
+  <section class="plate" id="plate-shatter">
+    <div class="plate-head">
+      <div class="plate-no">V</div>
+      <h2>Shatter &amp; reflow</h2>
+      <div class="api">layoutWithLines() · every word is a body · reflow gets animated</div>
+    </div>
+    <p class="plate-lede">CSS reflow teleports. Here, because the lines are known before anything is drawn, every word gets a target position and a spring to reach it. Drag the dashed edge to resize the column. Drop the paragraph, then put it back.</p>
+    <div class="stage" id="shatter"><canvas id="shatterCanvas" aria-label="A paragraph whose words can fall and reflow"></canvas></div>
+    <div class="controls">
+      <button class="chip primary" id="dropBtn">drop it</button>
+      <button class="chip" id="shakeBtn">shake</button>
+      <span class="readout" id="shatterReadout"></span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>Built on <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener">pretext</a> by Cheng Lou (MIT), included in this repo unchanged.<br>
+  Nothing on this page asks the DOM how big text is, except Plate IV, which does it on purpose to check the answers.</div>
+  <div><a href="/">markvrma.github.io</a> · <a href="https://github.com/markvrma" target="_blank" rel="noopener">github</a></div>
+</footer>
+
+<div id="probe" aria-hidden="true"></div>
+<script type="module" src="lab.js"></script>
+</body>
+</html>

@@ -80,6 +80,15 @@ I'm an <span class="mv-tagline">ML Engineer</span> at <a href="https://www.314ec
 <div class="mv-project-grid">
 
 <div class="mv-project-card">
+<div class="mv-project-title"><a href="/typeset/">unreflowed — a typesetting lab</a></div>
+<div class="mv-tags"><span class="mv-tag">JavaScript</span><span class="mv-tag">Canvas</span><span class="mv-tag">Text layout</span></div>
+<div class="mv-project-desc">Five experiments built on <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener">pretext</a> that lay out text without asking the DOM. My bio flows around orbs that follow your cursor at 60fps, text fills morphing glyphs, chat bubbles shrinkwrap to their tightest width, and a paragraph drops into a pile and springs back into place. One plate checks pretext's height predictions against real <code>offsetHeight</code> reads, and they match to the pixel.</div>
+<div class="mv-project-links">
+<a href="/typeset/">Open the lab &rarr;</a>
+</div>
+</div>
+
+<div class="mv-project-card">
 <div class="mv-project-title"><a href="https://swallow-mocha.vercel.app/" target="_blank" rel="noopener">Swallow</a></div>
 <div class="mv-tags"><span class="mv-tag">FastAPI</span><span class="mv-tag">React 19</span><span class="mv-tag">PostgreSQL</span></div>
 <div class="mv-project-desc">Stop choosing, start watching — rolls a random unseen episode from the shows you follow and never repeats one until the pool is exhausted. Saved &ldquo;controlled random&rdquo; presets narrow the roll to specific shows, seasons, and a maximum episode length. FastAPI + SQLAlchemy 2 over Postgres, Clerk auth, React/Vite frontend, episode data from the TVmaze API.</div>
