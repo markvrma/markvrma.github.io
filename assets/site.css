@@ -9,6 +9,7 @@
   --blue: #3c5f87; --teal: #1b5f57; --riso: #d8412a; --marker: #f3d24a; --purple: #6a3fb5;
   --shadow: 5px 5px 0 var(--line); --shadow-sm: 3px 3px 0 var(--line);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", Georgia, "Times New Roman", serif;
+  --display: "Workbench", "SF Mono", Menlo, Consolas, monospace;
   --mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
   --wrap: 1160px; --gut: clamp(16px, 4vw, 40px);
   color-scheme: light;
@@ -30,6 +31,9 @@
   }
 }
 
+/* Workbench (OFL, assets/fonts/Workbench-OFL.txt): a bitmap face with
+   scanlines built into every glyph. The only downloaded font, ~3 KB. */
+@font-face { font-family: "Workbench"; src: url(/assets/fonts/workbench.woff2) format("woff2"); font-display: swap }
 *, *::before, *::after { box-sizing: border-box }
 html { background: var(--paper); scroll-padding-top: 64px; overflow-x: clip; overflow-anchor: none }
 body {
@@ -93,7 +97,7 @@ html:not(.js) .needs-js { display: none }
 .sec { padding-top: clamp(56px, 9vw, 110px) }
 .sec-head { display: flex; align-items: baseline; gap: 14px; margin: 0 0 28px }
 .sec-no { font: 700 13px var(--mono); color: var(--purple); letter-spacing: .06em }
-.sec-head h2 { margin: 0; font: italic 400 clamp(34px, 5vw, 58px)/1 var(--serif); letter-spacing: -.02em; white-space: nowrap }
+.sec-head h2 { margin: 0; font: 400 clamp(30px, 4.4vw, 52px)/1 var(--display); letter-spacing: 0; white-space: nowrap }
 .sec-rule {
   flex: 1; height: 12px; align-self: center; min-width: 0;
   background: radial-gradient(var(--ink) 1px, transparent 1.3px) 0 0 / 4px 4px;
@@ -129,7 +133,7 @@ main { overflow-x: clip }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 6px 22px; font: 12px var(--mono); color: var(--muted); letter-spacing: .06em }
 .hero-meta span:first-child { color: var(--purple); font-weight: 700 }
 .display {
-  margin: 10px 0 0; font: italic 400 clamp(64px, 13vw, 168px)/.9 var(--serif); letter-spacing: -.04em;
+  margin: 14px 0 0; font: 400 clamp(44px, 12vw, 160px)/.95 var(--display); letter-spacing: 0;
   /* misregistered riso print: two plates that did not line up */
   text-shadow: .035em .02em 0 color-mix(in srgb, var(--riso) 80%, transparent), -.02em -.012em 0 color-mix(in srgb, var(--purple) 60%, transparent);
 }
@@ -233,7 +237,7 @@ main { overflow-x: clip }
 .grid .col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 26px }
 .proj { position: relative }
 .proj-in { padding: 16px 18px 18px }
-.proj h3 { margin: 0 0 8px; font: italic 700 23px/1.2 var(--serif); letter-spacing: -.01em }
+.proj h3 { margin: 0 0 10px; font: 400 22px/1.2 var(--display); letter-spacing: 0 }
 .proj h3 a { text-decoration: none }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; padding: 0; list-style: none }
 .tags li { font: 11px/1 var(--mono); border: 1px solid var(--line); padding: 4px 6px }
@@ -263,7 +267,7 @@ main { overflow-x: clip }
 .proj.lab { border-style: dashed; border-color: var(--purple); box-shadow: 5px 5px 0 var(--purple) }
 .proj.lab .win-bar { border-color: var(--purple) }
 .proj.lab .win-box { border-color: var(--purple) }
-.proj.lab h3 { font-style: normal; letter-spacing: -.03em }
+
 .more-gh { margin: 24px 0 0; font: italic 18px var(--serif) }
 
 /* ── skills: as a tokenizer would see them ───────────────────────────── */
@@ -305,7 +309,7 @@ main { overflow-x: clip }
 
 /* ── contact / footer ────────────────────────────────────────────────── */
 .contact { padding-top: clamp(70px, 11vw, 140px); padding-bottom: 30px }
-.contact h2 { margin: 0; font: italic 400 clamp(56px, 11vw, 140px)/.9 var(--serif); letter-spacing: -.04em }
+.contact h2 { margin: 0; font: 400 clamp(52px, 10vw, 128px)/.95 var(--display); letter-spacing: 0 }
 .contact h2 a { text-decoration: none; background: linear-gradient(var(--marker), var(--marker)) 0 88% / 100% .18em no-repeat }
 .contact h2 a:hover { color: inherit; background-size: 100% .5em }
 .elsewhere { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 26px 0 0; font: 700 14px var(--mono) }

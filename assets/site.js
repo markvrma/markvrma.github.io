@@ -173,4 +173,4 @@ document.addEventListener('keydown', e => {
 })
 
 // ── pretext enhancements, only where the engine can run ────────────────────
-if (typeof Intl !== 'undefined' && Intl.Segmenter) import('./typeset.js').catch(err => console.warn('typeset skipped:', err))
+if (typeof Intl !== 'undefined' && Intl.Segmenter) import('./typeset.js?v=09dc26d2').catch(err => console.warn('typeset skipped:', err))

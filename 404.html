@@ -17,11 +17,12 @@
 }
 main, .lost { position: relative; z-index: 1 }
 </style>
-<link rel="stylesheet" href="/assets/site.css?v=a74486f6">
+<link rel="preload" href="/assets/fonts/workbench.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=3f41556c">
 <script src="/assets/braille.js?v=51314350" defer></script>
 <style>
   .lost { min-height: 100vh; display: grid; place-content: center; gap: 18px; padding: var(--gut) }
-  .lost h1 { margin: 0; font: italic 400 clamp(90px, 22vw, 240px)/.85 var(--serif); letter-spacing: -.05em;
+  .lost h1 { margin: 0; font: 400 clamp(90px, 22vw, 240px)/.9 var(--display); letter-spacing: 0;
     text-shadow: .035em .02em 0 color-mix(in srgb, var(--riso) 80%, transparent), -.02em -.012em 0 color-mix(in srgb, var(--purple) 60%, transparent) }
   .lost pre { margin: 0; font: 13px/1.5 var(--mono); color: var(--muted); white-space: pre-wrap }
   .noise { height: 18px; background: radial-gradient(var(--ink) 1px, transparent 1.3px) 0 0 / 4px 4px; -webkit-mask-image: linear-gradient(90deg, #000, transparent); mask-image: linear-gradient(90deg, #000, transparent) }

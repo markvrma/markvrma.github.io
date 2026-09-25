@@ -275,6 +275,8 @@ function abstractClamp() {
   new ResizeObserver(([e]) => { if (Math.abs(e.contentRect.width - W) > 0.5) { W = e.contentRect.width; render() } }).observe(el)
 }
 
-for (const f of [flowIntro, masonry, abstractClamp]) {
-  try { f() } catch (err) { console.warn(f.name, err) }
-}
+const run = f => { try { f() } catch (err) { console.warn(f.name, err) } }
+run(flowIntro)
+run(abstractClamp)
+// card titles are set in Workbench, so predict their heights once it has loaded
+document.fonts.load('22px Workbench').catch(() => {}).then(() => run(masonry))
