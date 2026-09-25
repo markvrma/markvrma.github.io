@@ -30,18 +30,32 @@ function flowIntro() {
 
   let W = 0, winW = 0, winH = 0, pos = null, raf = 0, maxY = 0
   const GAP = 18, MIN_SLOT = 72
+  const spec = makeSpecDraggable(flow, () => schedule())
+
+  // Everything the text has to avoid, in the paragraph's coordinates.
+  const obstacles = () => {
+    const out = [{ x: pos.x, y: pos.y, w: winW, h: winH }]
+    const r = spec.rect()
+    if (r) out.push(r)
+    return out
+  }
+  // Free horizontal runs of one line band once the obstacles are cut out.
+  function slotsFor(y, obs) {
+    const cuts = obs.filter(o => o.y - 8 < y + lh && o.y + o.h + 12 > y).map(o => [o.x - GAP, o.x + o.w + GAP]).sort((a, b) => a[0] - b[0])
+    const out = []
+    let x = 0
+    for (const [a, b] of cuts) { if (a - x >= MIN_SLOT) out.push([x, Math.min(a, W)]); x = Math.max(x, b) }
+    if (W - x >= MIN_SLOT) out.push([x, W])
+    return out
+  }
 
   function render() {
     raf = 0
-    const wl = pos.x - GAP, wr = pos.x + winW + GAP, wt = pos.y - 8, wb = pos.y + winH + 12
+    const obs = obstacles()
     const placed = []
     let cursor, y = 0
     rows: for (let guard = 0; guard < 400; guard++, y += lh) {
-      const hit = wt < y + lh && wb > y
-      const slots = (hit ? [[0, wl], [wr, W]] : [[0, W]])
-        .map(([a, b]) => [Math.max(0, a), Math.min(W, b)])
-        .filter(([a, b]) => b - a >= MIN_SLOT)
-      for (const [a, b] of slots) {
+      for (const [a, b] of slotsFor(y, obs)) {
         const range = layoutNextRichInlineLineRange(prepared, b - a, cursor)
         if (!range) break rows
         placed.push({ x: a, y, line: materializeRichInlineLineRange(prepared, range) })
@@ -106,6 +120,87 @@ function flowIntro() {
     e.preventDefault(); schedule()
   })
   win.addEventListener('dblclick', e => { if (!e.target.closest('button')) { pos = { x: W - winW, y: 4 }; schedule() } })
+}
+
+// The spec sheet can be picked up too. On first drag it leaves a same-sized
+// placeholder in the grid and floats inside the hero, so moving it never
+// shifts the layout underneath; if it lands on the intro, the intro wraps.
+function makeSpecDraggable(flow, onMove) {
+  const spec = $('#spec'), hero = $('#hi')
+  let floating = false, x = 0, y = 0, ph = null, flowOff = { x: 0, y: 0 }, drag = null, moved = false, z = 5
+  const box = () => ({ w: spec.offsetWidth, h: spec.offsetHeight, hw: hero.clientWidth, hh: hero.clientHeight })
+  function measureFlow() {
+    const h = hero.getBoundingClientRect(), f = flow.getBoundingClientRect()
+    flowOff = { x: f.left - h.left, y: f.top - h.top }
+  }
+  function place() {
+    const b = box()
+    x = clamp(x, 0, Math.max(0, b.hw - b.w)); y = clamp(y, 0, Math.max(0, b.hh - b.h))
+    spec.style.transform = `translate(${x}px, ${y}px)`
+    onMove()
+  }
+  function lift() {
+    if (floating) return
+    const h = hero.getBoundingClientRect(), r = spec.getBoundingClientRect()
+    ph = document.createElement('div')
+    ph.className = 'spec-ph'; ph.style.height = `${r.height}px`
+    spec.before(ph)
+    spec.style.width = `${r.width}px`
+    spec.classList.add('floating')
+    x = r.left - h.left; y = r.top - h.top
+    floating = true
+    measureFlow()
+  }
+  function reset() {
+    if (!floating) return
+    ph.remove(); ph = null
+    spec.classList.remove('floating'); spec.style.width = spec.style.transform = ''
+    floating = false
+    onMove()
+  }
+  spec.addEventListener('pointerdown', e => {
+    if (e.button > 0) return
+    // on touch only the title bar grabs, so swiping the sheet still scrolls the page
+    if (e.pointerType !== 'mouse' && !e.target.closest('h3')) return
+    drag = { sx: e.clientX, sy: e.clientY, id: e.pointerId }
+    moved = false
+  })
+  spec.addEventListener('pointermove', e => {
+    if (!drag) return
+    if (!moved) {
+      if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 5) return
+      moved = true
+      lift()
+      drag.ox = x - drag.sx; drag.oy = y - drag.sy
+      spec.setPointerCapture(drag.id)
+      spec.classList.add('dragging')
+      spec.style.zIndex = ++z
+      getSelection()?.removeAllRanges()
+    }
+    x = e.clientX + drag.ox; y = e.clientY + drag.oy
+    place()
+  })
+  const end = () => { drag = null; spec.classList.remove('dragging') }
+  spec.addEventListener('pointerup', end)
+  spec.addEventListener('dragstart', e => e.preventDefault())
+  spec.querySelector('h3').addEventListener('touchstart', e => e.preventDefault(), { passive: false })
+  spec.addEventListener('pointercancel', end)
+  // a drag that started on a link shouldn't also follow it
+  spec.addEventListener('click', e => { if (moved) { e.preventDefault(); moved = false } }, true)
+  spec.addEventListener('dblclick', e => { if (!e.target.closest('a')) reset() })
+  spec.addEventListener('keydown', e => {
+    if (e.target !== spec) return
+    if (e.key === 'Home') { reset(); e.preventDefault(); return }
+    const step = e.shiftKey ? 60 : 20
+    const d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key]
+    if (!d) return
+    lift(); x += d[0]; y += d[1]; place(); e.preventDefault()
+  })
+  new ResizeObserver(() => { if (floating) { measureFlow(); place() } }).observe(hero)
+  return {
+    // the sheet's box in the intro paragraph's coordinates, or null while it sits in its column
+    rect: () => floating ? { x: x - flowOff.x, y: y - flowOff.y, w: spec.offsetWidth, h: spec.offsetHeight } : null,
+  }
 }
 
 // ── 2. Projects: a masonry that keeps reading order, with every card's height

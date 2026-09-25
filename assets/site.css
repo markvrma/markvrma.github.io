@@ -31,7 +31,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box }
-html { background: var(--paper); scroll-padding-top: 64px; overflow-x: clip }
+html { background: var(--paper); scroll-padding-top: 64px; overflow-x: clip; overflow-anchor: none }
 body {
   margin: 0; background: var(--paper); color: var(--ink);
   font: 18px/1.55 var(--serif); -webkit-text-size-adjust: 100%;
@@ -168,6 +168,13 @@ main { overflow-x: clip }
 
 .spec { font: 12.5px/1.5 var(--mono); border: 2px solid var(--line); background: var(--sunk); box-shadow: var(--shadow-sm) }
 .spec h3 { margin: 0; padding: 6px 10px; font: 700 11px var(--mono); letter-spacing: .12em; background: var(--ink); color: var(--paper) }
+.hero { position: relative }
+.js .spec { cursor: grab }
+.js .spec h3 { touch-action: none }
+.js .spec h3::after { content: " ⠿"; color: var(--purple); letter-spacing: 0 }
+.spec.floating { position: absolute; left: 0; top: 0; z-index: 5; margin: 0 }
+.spec.dragging { cursor: grabbing; box-shadow: 9px 9px 0 var(--line); user-select: none }
+.spec-ph { border: 2px dashed color-mix(in srgb, var(--line) 30%, transparent) }
 .spec dl { margin: 0; padding: 10px 12px; display: grid; grid-template-columns: auto 1fr; gap: 5px 14px }
 .spec dt { color: var(--muted) }
 .spec dd { margin: 0; min-width: 0; overflow-wrap: anywhere }
