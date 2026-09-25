@@ -15,12 +15,22 @@
 <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/images/favicon.ico" sizes="any">
 <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="stylesheet" href="/assets/site.css">
-<script src="/assets/braille.js" defer></script>
+<style>
+/* Inline, not in site.css: if a stale cached stylesheet arrives without these
+   rules, the <pre> falls into normal flow as a wall of braille at the top. */
+.braille-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: var(--ink, #14120f); opacity: .085 }
+.braille-bg pre {
+  margin: 0; padding: 0; border: 0; background: none; white-space: pre; overflow: hidden; user-select: none;
+  font: 13px/1 "Menlo", "DejaVu Sans Mono", "Segoe UI Symbol", monospace; letter-spacing: 0;
+}
+main, .lost { position: relative; z-index: 1 }
+</style>
+<link rel="stylesheet" href="/assets/site.css?v=a74486f6">
+<script src="/assets/braille.js?v=51314350" defer></script>
 <link rel="modulepreload" href="/assets/typeset.js">
 <link rel="modulepreload" href="/assets/js/pretext/layout.js">
 <link rel="modulepreload" href="/assets/js/pretext/rich-inline.js">
-<script type="module" src="/assets/site.js"></script>
+<script type="module" src="/assets/site.js?v=8c52b6e4"></script>
 </head>
 <body>
 <div class="braille-bg" aria-hidden="true"><pre id="braille-bg"></pre></div>

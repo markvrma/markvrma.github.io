@@ -45,13 +45,6 @@ body::before {
   -webkit-mask-image: radial-gradient(60vmax 40vmax at 12% 8%, #000, transparent 70%), radial-gradient(50vmax 50vmax at 95% 70%, #000, transparent 70%);
           mask-image: radial-gradient(60vmax 40vmax at 12% 8%, #000, transparent 70%), radial-gradient(50vmax 50vmax at 95% 70%, #000, transparent 70%);
 }
-/* the braille-dot spiral from the old site, drawn as text by braille.js */
-.braille-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: var(--ink); opacity: .085 }
-.braille-bg pre {
-  margin: 0; padding: 0; border: 0; background: none; white-space: pre; overflow: hidden; user-select: none;
-  font: 13px/1 "Menlo", "DejaVu Sans Mono", "Segoe UI Symbol", monospace; letter-spacing: 0;
-}
-main, .lost { position: relative; z-index: 1 }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px }
 a:hover { color: var(--purple) }
 :focus-visible { outline: 2px dashed var(--purple); outline-offset: 3px }
