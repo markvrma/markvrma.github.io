@@ -6,7 +6,7 @@
 :root {
   --paper: #f0ebe0; --paper-2: #faf7ef; --sunk: #e5dfd1;
   --ink: #14120f; --muted: #5f584c; --line: #14120f;
-  --blue: #3c5f87; --teal: #1b5f57; --riso: #d8412a; --marker: #f3d24a;
+  --blue: #3c5f87; --teal: #1b5f57; --riso: #d8412a; --marker: #f3d24a; --purple: #6a3fb5;
   --shadow: 5px 5px 0 var(--line); --shadow-sm: 3px 3px 0 var(--line);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", Georgia, "Times New Roman", serif;
   --mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
@@ -16,7 +16,7 @@
 :root[data-theme="dark"] {
   --paper: #17171a; --paper-2: #202027; --sunk: #111114;
   --ink: #ece6da; --muted: #a39b8c; --line: #ece6da;
-  --blue: #7fa6cc; --teal: #6fbfb3; --riso: #ff6a4d; --marker: #7a6414;
+  --blue: #7fa6cc; --teal: #6fbfb3; --riso: #ff6a4d; --marker: #7a6414; --purple: #b794f6;
   --shadow: 5px 5px 0 #000; --shadow-sm: 3px 3px 0 #000;
   color-scheme: dark;
 }
@@ -24,7 +24,7 @@
   :root:not([data-theme="light"]) {
     --paper: #17171a; --paper-2: #202027; --sunk: #111114;
     --ink: #ece6da; --muted: #a39b8c; --line: #ece6da;
-    --blue: #7fa6cc; --teal: #6fbfb3; --riso: #ff6a4d; --marker: #7a6414;
+    --blue: #7fa6cc; --teal: #6fbfb3; --riso: #ff6a4d; --marker: #7a6414; --purple: #b794f6;
     --shadow: 5px 5px 0 #000; --shadow-sm: 3px 3px 0 #000;
     color-scheme: dark;
   }
@@ -46,9 +46,9 @@ body::before {
           mask-image: radial-gradient(60vmax 40vmax at 12% 8%, #000, transparent 70%), radial-gradient(50vmax 50vmax at 95% 70%, #000, transparent 70%);
 }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px }
-a:hover { color: var(--riso) }
-:focus-visible { outline: 2px dashed var(--riso); outline-offset: 3px }
-::selection { background: var(--ink); color: var(--paper) }
+a:hover { color: var(--purple) }
+:focus-visible { outline: 2px dashed var(--purple); outline-offset: 3px }
+::selection { background: var(--purple); color: var(--paper) }
 strong { font-weight: 700 }
 code { font: .86em var(--mono); background: var(--sunk); padding: 0 .3em; border: 1px solid color-mix(in srgb, var(--line) 25%, transparent) }
 mark {
@@ -73,8 +73,8 @@ html:not(.js) .needs-js { display: none }
 @keyframes blink { 50% { opacity: 0 } }
 .mast nav { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0 }
 .mast nav a { text-decoration: none; white-space: nowrap; padding: 4px 0; border-bottom: 2px solid transparent }
-.mast nav a:hover { border-color: var(--riso); color: inherit }
-.mast nav a::before { content: "/"; color: var(--muted) }
+.mast nav a:hover { border-color: var(--purple); color: inherit }
+.mast nav a::before { content: "/"; color: var(--purple) }
 .tools { display: flex; gap: 8px; align-items: center }
 .meter { color: var(--muted); white-space: nowrap; font-size: 11px }
 .meter b { color: var(--ink); font-weight: 700 }
@@ -92,7 +92,7 @@ html:not(.js) .needs-js { display: none }
 /* ── section scaffolding ─────────────────────────────────────────────── */
 .sec { padding-top: clamp(56px, 9vw, 110px) }
 .sec-head { display: flex; align-items: baseline; gap: 14px; margin: 0 0 28px }
-.sec-no { font: 700 13px var(--mono); color: var(--riso); letter-spacing: .06em }
+.sec-no { font: 700 13px var(--mono); color: var(--purple); letter-spacing: .06em }
 .sec-head h2 { margin: 0; font: italic 400 clamp(34px, 5vw, 58px)/1 var(--serif); letter-spacing: -.02em; white-space: nowrap }
 .sec-rule {
   flex: 1; height: 12px; align-self: center; min-width: 0;
@@ -127,11 +127,11 @@ html:not(.js) .needs-js { display: none }
 main { overflow-x: clip }
 @media (max-width: 600px) { .card, .receipt { transform: none } }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 6px 22px; font: 12px var(--mono); color: var(--muted); letter-spacing: .06em }
-.hero-meta span:first-child { color: var(--riso); font-weight: 700 }
+.hero-meta span:first-child { color: var(--purple); font-weight: 700 }
 .display {
   margin: 10px 0 0; font: italic 400 clamp(64px, 13vw, 168px)/.9 var(--serif); letter-spacing: -.04em;
   /* misregistered riso print: two plates that did not line up */
-  text-shadow: .035em .02em 0 color-mix(in srgb, var(--riso) 80%, transparent), -.02em -.012em 0 color-mix(in srgb, var(--blue) 55%, transparent);
+  text-shadow: .035em .02em 0 color-mix(in srgb, var(--riso) 80%, transparent), -.02em -.012em 0 color-mix(in srgb, var(--purple) 60%, transparent);
 }
 .kicker { margin: 18px 0 0; font: 14px/1.6 var(--mono); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px 48px; margin-top: 36px; align-items: start }
@@ -163,7 +163,7 @@ main { overflow-x: clip }
 .win-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-top: 2px solid var(--line); padding: 6px 8px; font: 10.5px var(--mono); white-space: nowrap }
 .win-foot .btn { font-size: 10px; padding: 4px 6px; box-shadow: none }
 .flow-hint { clear: both; margin: 14px 0 0; font: 11px/1.5 var(--mono); color: var(--muted) }
-.flow-hint::before { content: "↖ " ; color: var(--riso) }
+.flow-hint::before { content: "↖ " ; color: var(--purple) }
 @media (max-width: 560px) { .portrait { width: 148px; margin-left: 14px } .win-foot > span { display: none } .win-foot { justify-content: flex-end } }
 
 .spec { font: 12.5px/1.5 var(--mono); border: 2px solid var(--line); background: var(--sunk); box-shadow: var(--shadow-sm) }
@@ -189,7 +189,7 @@ main { overflow-x: clip }
 .graph .head { color: var(--teal); font-weight: 700 }
 .job-body ul { margin: 0; padding: 0; list-style: none }
 .job-body li { position: relative; padding-left: 26px; margin: 0 0 12px }
-.job-body li::before { content: "+"; position: absolute; left: 4px; top: 0; font: 700 15px/1.6 var(--mono); color: var(--teal) }
+.job-body li::before { content: "+"; position: absolute; left: 4px; top: 0; font: 700 15px/1.6 var(--mono); color: var(--purple) }
 .job-body p { margin: 16px 0 0; font-size: 16px; color: var(--muted) }
 .job-body p a { color: var(--ink) }
 @media (max-width: 760px) { .job { grid-template-columns: 1fr } }
@@ -208,8 +208,8 @@ main { overflow-x: clip }
 .card .lead { margin: 16px 0 0 }
 .abs-label { margin: 18px 0 0 }
 .abstract { margin: 4px 0 0; font-size: 16.5px; line-height: 28px }
-.abstract .more { font: 700 12px var(--mono); background: none; border: 0; padding: 0; color: var(--riso); cursor: pointer; text-decoration: underline; text-underline-offset: 3px }
-.cite { margin: 18px 0 0; font: 12px/1.6 var(--mono); background: var(--sunk); border-left: 4px solid var(--ink); padding: 10px 12px; overflow-wrap: anywhere }
+.abstract .more { font: 700 12px var(--mono); background: none; border: 0; padding: 0; color: var(--purple); cursor: pointer; text-decoration: underline; text-underline-offset: 3px }
+.cite { margin: 18px 0 0; font: 12px/1.6 var(--mono); background: var(--sunk); border-left: 4px solid var(--purple); padding: 10px 12px; overflow-wrap: anywhere }
 .cite .kw { display: block; margin-top: 6px; color: var(--muted) }
 .links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 16px 0 0; font: 700 13px var(--mono) }
 .links a { text-decoration: none; border-bottom: 2px solid currentColor }
@@ -236,7 +236,7 @@ main { overflow-x: clip }
 .proj.shell .win-bar { background: var(--ink); color: color-mix(in srgb, var(--paper) 70%, transparent); border-color: color-mix(in srgb, var(--paper) 30%, transparent); font-weight: 400 }
 .proj.shell .win-bar > * { background: var(--ink) }
 .proj.shell h3 { font: 700 18px/1.3 var(--mono) }
-.proj.shell h3::before { content: "$ ./"; color: var(--teal) }
+.proj.shell h3::before { content: "$ ./"; color: color-mix(in srgb, var(--purple) 55%, var(--paper)) }
 .proj.shell .tags li { border-color: color-mix(in srgb, var(--paper) 40%, transparent) }
 .proj.shell a:hover { color: var(--marker) }
 .proj.shell code { background: none; color: inherit; border-color: color-mix(in srgb, var(--paper) 40%, transparent) }
@@ -248,7 +248,9 @@ main { overflow-x: clip }
 }
 .proj.note .win-bar { display: none }
 .proj.note h3 { text-decoration: underline wavy var(--riso) 1.5px; text-underline-offset: 5px }
-.proj.lab { border-style: dashed }
+.proj.lab { border-style: dashed; border-color: var(--purple); box-shadow: 5px 5px 0 var(--purple) }
+.proj.lab .win-bar { border-color: var(--purple) }
+.proj.lab .win-box { border-color: var(--purple) }
 .proj.lab h3 { font-style: normal; letter-spacing: -.03em }
 .more-gh { margin: 24px 0 0; font: italic 18px var(--serif) }
 
@@ -259,11 +261,11 @@ main { overflow-x: clip }
 .toks { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none }
 .tok { position: relative; font: 14px/1 var(--mono); padding: 7px 8px 6px; border: 1px solid var(--line); cursor: default }
 .tok sub { font-size: 9px; color: var(--muted); margin-left: 4px; vertical-align: -1px }
-.tok:nth-child(4n+1) { background: color-mix(in srgb, var(--blue) 16%, transparent) }
+.tok:nth-child(4n+1) { background: color-mix(in srgb, var(--purple) 16%, transparent) }
 .tok:nth-child(4n+2) { background: radial-gradient(color-mix(in srgb, var(--ink) 30%, transparent) .7px, transparent 1px) 0 0 / 3px 3px }
 .tok:nth-child(4n+3) { background: color-mix(in srgb, var(--marker) 38%, transparent) }
 .tok:nth-child(4n) { background: color-mix(in srgb, var(--teal) 14%, transparent) }
-.tok:hover { background: var(--ink); color: var(--paper) }
+.tok:hover { background: var(--purple); color: var(--paper); border-color: var(--purple) }
 .tok:hover sub { color: var(--paper) }
 .tok-sum { font: 12px var(--mono); color: var(--muted); margin: 6px 0 0 }
 
@@ -302,7 +304,7 @@ main { overflow-x: clip }
 /* ── terminal ────────────────────────────────────────────────────────── */
 .term {
   width: min(680px, calc(100vw - 24px)); max-height: min(520px, 80vh); padding: 0; border: 2px solid var(--line);
-  background: #0d0d0c; color: #d9f2c7; box-shadow: 8px 8px 0 var(--riso); font: 13.5px/1.55 var(--mono);
+  background: #0d0d0c; color: #d9f2c7; box-shadow: 8px 8px 0 var(--purple); font: 13.5px/1.55 var(--mono);
 }
 .term::backdrop { background: color-mix(in srgb, var(--paper) 55%, transparent); backdrop-filter: grayscale(1) }
 .term-bar { display: flex; justify-content: space-between; padding: 6px 10px; background: #d9f2c7; color: #0d0d0c; font-weight: 700; font-size: 11px }
