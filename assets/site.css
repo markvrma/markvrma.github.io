@@ -174,7 +174,12 @@ main { overflow-x: clip }
 .js .spec h3::after { content: " ⠿"; color: var(--purple); letter-spacing: 0 }
 .spec.floating { position: absolute; left: 0; top: 0; z-index: 5; margin: 0 }
 .spec.dragging { cursor: grabbing; box-shadow: 9px 9px 0 var(--line); user-select: none }
-.spec-ph { border: 2px dashed color-mix(in srgb, var(--line) 30%, transparent) }
+.drag-ph { border: 2px dashed color-mix(in srgb, var(--line) 30%, transparent) }
+#projects { position: relative }
+.proj.draggable { cursor: grab }
+.proj.draggable .win-bar, .proj.note.draggable h3 { touch-action: none }
+.proj.floating { position: absolute; left: 0; top: 0; z-index: 5; margin: 0 }
+.proj.dragging { cursor: grabbing; box-shadow: 9px 9px 0 var(--line); user-select: none }
 .spec dl { margin: 0; padding: 10px 12px; display: grid; grid-template-columns: auto 1fr; gap: 5px 14px }
 .spec dt { color: var(--muted) }
 .spec dd { margin: 0; min-width: 0; overflow-wrap: anywhere }

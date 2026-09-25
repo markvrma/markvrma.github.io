@@ -30,13 +30,17 @@ function flowIntro() {
 
   let W = 0, winW = 0, winH = 0, pos = null, raf = 0, maxY = 0
   const GAP = 18, MIN_SLOT = 72
-  const spec = makeSpecDraggable(flow, () => schedule())
+  const hero = $('#hi')
+  const spec = makeDraggable($('#spec'), hero, { handle: 'h3', onMove: () => schedule() })
 
   // Everything the text has to avoid, in the paragraph's coordinates.
   const obstacles = () => {
     const out = [{ x: pos.x, y: pos.y, w: winW, h: winH }]
     const r = spec.rect()
-    if (r) out.push(r)
+    if (r) {
+      const h = hero.getBoundingClientRect(), f = flow.getBoundingClientRect()
+      out.push({ ...r, x: r.x - (f.left - h.left), y: r.y - (f.top - h.top) })
+    }
     return out
   }
   // Free horizontal runs of one line band once the obstacles are cut out.
@@ -122,84 +126,81 @@ function flowIntro() {
   win.addEventListener('dblclick', e => { if (!e.target.closest('button')) { pos = { x: W - winW, y: 4 }; schedule() } })
 }
 
-// The spec sheet can be picked up too. On first drag it leaves a same-sized
-// placeholder in the grid and floats inside the hero, so moving it never
-// shifts the layout underneath; if it lands on the intro, the intro wraps.
-function makeSpecDraggable(flow, onMove) {
-  const spec = $('#spec'), hero = $('#hi')
-  let floating = false, x = 0, y = 0, ph = null, flowOff = { x: 0, y: 0 }, drag = null, moved = false, z = 5
-  const box = () => ({ w: spec.offsetWidth, h: spec.offsetHeight, hw: hero.clientWidth, hh: hero.clientHeight })
-  function measureFlow() {
-    const h = hero.getBoundingClientRect(), f = flow.getBoundingClientRect()
-    flowOff = { x: f.left - h.left, y: f.top - h.top }
-  }
+// Anything on the page can be picked up: the spec sheet, the project cards.
+// On first drag an element leaves a same-sized dashed placeholder where it
+// sat and floats inside its area, so moving it never shifts the layout
+// underneath. Links inside still click; a drag that starts on one doesn't
+// follow it. On touch only `handle` grabs, so swiping the rest scrolls.
+let topZ = 5
+function makeDraggable(el, area, { handle, onMove = () => {} } = {}) {
+  let floating = false, x = 0, y = 0, ph = null, drag = null, moved = false
   function place() {
-    const b = box()
-    x = clamp(x, 0, Math.max(0, b.hw - b.w)); y = clamp(y, 0, Math.max(0, b.hh - b.h))
-    spec.style.transform = `translate(${x}px, ${y}px)`
+    x = clamp(x, 0, Math.max(0, area.clientWidth - el.offsetWidth))
+    y = clamp(y, 0, Math.max(0, area.clientHeight - el.offsetHeight))
+    el.style.transform = `translate(${x}px, ${y}px)`
     onMove()
   }
   function lift() {
     if (floating) return
-    const h = hero.getBoundingClientRect(), r = spec.getBoundingClientRect()
+    const a = area.getBoundingClientRect(), r = el.getBoundingClientRect()
     ph = document.createElement('div')
-    ph.className = 'spec-ph'; ph.style.height = `${r.height}px`
-    spec.before(ph)
-    spec.style.width = `${r.width}px`
-    spec.classList.add('floating')
-    x = r.left - h.left; y = r.top - h.top
+    ph.className = 'drag-ph'; ph.style.height = `${r.height}px`
+    el.before(ph)
+    el.style.width = `${r.width}px`
+    el.classList.add('floating')
+    x = r.left - a.left; y = r.top - a.top
     floating = true
-    measureFlow()
   }
   function reset() {
     if (!floating) return
-    ph.remove(); ph = null
-    spec.classList.remove('floating'); spec.style.width = spec.style.transform = ''
+    ph.replaceWith(el); ph = null
+    el.classList.remove('floating'); el.style.width = el.style.transform = el.style.zIndex = ''
     floating = false
     onMove()
   }
-  spec.addEventListener('pointerdown', e => {
+  el.classList.add('draggable')
+  if (!el.hasAttribute('tabindex')) el.tabIndex = 0
+  el.addEventListener('pointerdown', e => {
     if (e.button > 0) return
-    // on touch only the title bar grabs, so swiping the sheet still scrolls the page
-    if (e.pointerType !== 'mouse' && !e.target.closest('h3')) return
+    if (e.pointerType !== 'mouse' && !e.target.closest(handle)) return
     drag = { sx: e.clientX, sy: e.clientY, id: e.pointerId }
     moved = false
   })
-  spec.addEventListener('pointermove', e => {
+  el.addEventListener('pointermove', e => {
     if (!drag) return
     if (!moved) {
       if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 5) return
       moved = true
       lift()
       drag.ox = x - drag.sx; drag.oy = y - drag.sy
-      spec.setPointerCapture(drag.id)
-      spec.classList.add('dragging')
-      spec.style.zIndex = ++z
+      el.setPointerCapture(drag.id)
+      el.classList.add('dragging')
+      el.style.zIndex = ++topZ
       getSelection()?.removeAllRanges()
     }
     x = e.clientX + drag.ox; y = e.clientY + drag.oy
     place()
   })
-  const end = () => { drag = null; spec.classList.remove('dragging') }
-  spec.addEventListener('pointerup', end)
-  spec.addEventListener('dragstart', e => e.preventDefault())
-  spec.querySelector('h3').addEventListener('touchstart', e => e.preventDefault(), { passive: false })
-  spec.addEventListener('pointercancel', end)
-  // a drag that started on a link shouldn't also follow it
-  spec.addEventListener('click', e => { if (moved) { e.preventDefault(); moved = false } }, true)
-  spec.addEventListener('dblclick', e => { if (!e.target.closest('a')) reset() })
-  spec.addEventListener('keydown', e => {
-    if (e.target !== spec) return
+  const end = () => { drag = null; el.classList.remove('dragging') }
+  el.addEventListener('pointerup', end)
+  el.addEventListener('pointercancel', end)
+  el.addEventListener('dragstart', e => e.preventDefault())
+  el.addEventListener('click', e => { if (moved) { e.preventDefault(); moved = false } }, true)
+  el.addEventListener('dblclick', e => { if (!e.target.closest('a, button')) reset() })
+  el.addEventListener('keydown', e => {
+    if (e.target !== el) return
     if (e.key === 'Home') { reset(); e.preventDefault(); return }
     const step = e.shiftKey ? 60 : 20
     const d = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key]
     if (!d) return
-    lift(); x += d[0]; y += d[1]; place(); e.preventDefault()
+    lift(); el.style.zIndex = ++topZ; x += d[0]; y += d[1]; place(); e.preventDefault()
   })
-  new ResizeObserver(() => { if (floating) { measureFlow(); place() } }).observe(hero)
+  new ResizeObserver(() => { if (floating) place() }).observe(area)
   return {
-    // the sheet's box in the intro paragraph's coordinates, or null while it sits in its column
-    rect: () => floating ? { x: x - flowOff.x, y: y - flowOff.y, w: spec.offsetWidth, h: spec.offsetHeight } : null,
+    // position in the area's coordinates, or null while it sits in its slot
+    rect: () => floating ? { x, y, w: el.offsetWidth, h: el.offsetHeight } : null,
+    // what occupies the element's slot in the layout: itself, or its placeholder
+    slot: () => floating ? ph : el,
   }
 }
 
@@ -208,6 +209,9 @@ function makeSpecDraggable(flow, onMove) {
 function masonry() {
   const grid = $('#grid')
   const cards = [...grid.querySelectorAll(':scope > .proj')]
+  const drags = new Map(cards.map(c => [c, makeDraggable(c, $('#projects'), { handle: '.win-bar, h3' })]))
+  // a lifted card stays where it was dropped; its placeholder holds its place in the column
+  const slot = c => { const sl = drags.get(c).slot(); return sl === c ? [c] : [sl, c] }
   const GAP = 26
   const specs = cards.map(card => {
     const h3 = card.querySelector('h3'), desc = card.querySelector('.desc')
@@ -226,13 +230,13 @@ function masonry() {
     const key = `${n}:${Math.round(W)}`
     if (key === lastKey) return
     lastKey = key
-    if (n === 1) { grid.classList.remove('masonry'); grid.replaceChildren(...cards); return }
+    if (n === 1) { grid.classList.remove('masonry'); grid.replaceChildren(...cards.flatMap(slot)); return }
     const inner = (W - GAP * (n - 1)) / n - 4 - 36
     const heights = new Array(n).fill(0), cols = Array.from({ length: n }, () => [])
     for (const s of specs) {
       const h = s.chrome + layout(s.title, inner, s.tlh).height + layout(s.desc, inner, s.dlh).height
       const j = heights.indexOf(Math.min(...heights))
-      cols[j].push(s.card)
+      cols[j].push(...slot(s.card))
       heights[j] += h + GAP
     }
     grid.classList.add('masonry')
