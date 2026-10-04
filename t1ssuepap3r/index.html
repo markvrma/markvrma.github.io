@@ -12,9 +12,11 @@
   body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     overflow:auto}
   #status{position:fixed;top:10px;right:14px;font-size:.75rem;color:var(--muted);z-index:10}
-  #wall{position:relative;width:100%;min-height:100vh;min-width:100vw;cursor:text}
+  #wall{position:relative;width:100%;min-height:100vh;min-width:100vw;cursor:crosshair}
   .block{position:absolute;min-width:20px;min-height:1.4em;outline:none;
     font-size:1.05rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-width:80vw}
+  .block.sized{max-width:none;overflow-wrap:anywhere}
+  #draw{position:absolute;border:1px dashed var(--muted);background:rgba(0,0,0,.03);pointer-events:none;z-index:5}
   .block a{color:var(--link);text-decoration:underline}
   .block.md{white-space:normal}
   .block.md > :first-child{margin-top:0}
@@ -103,6 +105,11 @@ function makeBlockEl(block) {
   el.contentEditable = 'true';
   el.style.left = block.x + 'px';
   el.style.top = block.y + 'px';
+  if (block.w) {
+    el.classList.add('sized');
+    el.style.width = block.w + 'px';
+    if (block.h) el.style.minHeight = block.h + 'px';
+  }
   renderBlockContent(el, block, false);
 
   el.addEventListener('focus', () => renderBlockContent(el, block, true));
@@ -143,14 +150,55 @@ function makeBlockEl(block) {
   return el;
 }
 
-wall.addEventListener('click', e => {
-  if (e.target !== wall) return;
-  const x = e.pageX;
-  const y = e.pageY;
+function addBlock(x, y, w, h) {
   const block = { id: Date.now() + Math.random(), x, y, text: '' };
+  // w/h are session-only (not part of the saved payload)
+  if (w) { block.w = w; block.h = h; }
   blocks.push(block);
-  const el = makeBlockEl(block);
-  el.focus();
+  makeBlockEl(block).focus();
+}
+
+// Drag on empty space to draw a temporary box; the box disappears on release
+// and a text block (fixed width, wrapping, growing downward) takes its place.
+let drag = null;
+let lastPointerType = 'mouse';
+
+wall.addEventListener('pointerdown', e => {
+  lastPointerType = e.pointerType;
+  if (e.target !== wall || e.button !== 0 || e.pointerType === 'touch') return;
+  e.preventDefault();
+  const guide = document.createElement('div');
+  guide.id = 'draw';
+  wall.appendChild(guide);
+  drag = { x0: e.pageX, y0: e.pageY, guide, x: e.pageX, y: e.pageY, w: 0, h: 0 };
+  wall.setPointerCapture(e.pointerId);
+});
+
+wall.addEventListener('pointermove', e => {
+  if (!drag) return;
+  drag.x = Math.min(drag.x0, e.pageX);
+  drag.y = Math.min(drag.y0, e.pageY);
+  drag.w = Math.abs(e.pageX - drag.x0);
+  drag.h = Math.abs(e.pageY - drag.y0);
+  Object.assign(drag.guide.style, {
+    left: drag.x + 'px', top: drag.y + 'px', width: drag.w + 'px', height: drag.h + 'px'
+  });
+});
+
+function endDrag(e, commit) {
+  if (!drag) return;
+  const d = drag;
+  drag = null;
+  d.guide.remove();
+  if (commit && d.w >= 30 && d.h >= 12) addBlock(d.x, d.y, d.w, d.h);
+}
+wall.addEventListener('pointerup', e => endDrag(e, true));
+wall.addEventListener('pointercancel', e => endDrag(e, false));
+
+// Touch can't drag-draw without blocking scroll, so tap still places a block.
+wall.addEventListener('click', e => {
+  if (e.target !== wall || lastPointerType !== 'touch') return;
+  addBlock(e.pageX, e.pageY);
 });
 
 function queueSave() {
