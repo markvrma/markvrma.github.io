@@ -152,7 +152,6 @@ function makeBlockEl(block) {
 
 function addBlock(x, y, w, h) {
   const block = { id: Date.now() + Math.random(), x, y, text: '' };
-  // w/h are session-only (not part of the saved payload)
   if (w) { block.w = w; block.h = h; }
   blocks.push(block);
   makeBlockEl(block).focus();
@@ -208,7 +207,7 @@ function queueSave() {
 }
 
 async function save() {
-  const payload = JSON.stringify(blocks.map(b => ({ id: b.id, x: b.x, y: b.y, text: b.text })));
+  const payload = JSON.stringify(blocks.map(b => b.w ? { id: b.id, x: b.x, y: b.y, w: b.w, h: b.h, text: b.text } : { id: b.id, x: b.x, y: b.y, text: b.text }));
   const { error } = await sb.from('scratchpad')
     .update({ content: payload, updated_at: new Date().toISOString() })
     .eq('id', 'main');
