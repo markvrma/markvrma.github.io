@@ -16,6 +16,11 @@
   .block{position:absolute;min-width:20px;min-height:1.4em;outline:none;
     font-size:1.05rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-width:80vw}
   .block.sized{max-width:none;overflow-wrap:anywhere}
+  /* padding/negative margin keep the text at (x,y) while giving a grab margin around it */
+  .block{padding:8px;margin:-8px;border-radius:3px}
+  .block:hover{outline:1px dashed var(--muted)}
+  .block:focus{outline:2px solid var(--link);background:rgba(58,110,165,.07)}
+  .block.edge{cursor:move}
   #draw{position:absolute;border:1px dashed var(--muted);background:rgba(0,0,0,.03);pointer-events:none;z-index:5}
   .block a{color:var(--link);text-decoration:underline}
   .block.md{white-space:normal}
@@ -128,6 +133,36 @@ function makeBlockEl(block) {
     queueSave();
   });
   el.addEventListener('click', e => e.stopPropagation());
+
+  // Grab the padded edge of a box to move it; the text inside stays put relative to the box.
+  const PAD = 8;
+  const onEdge = e => {
+    const r = el.getBoundingClientRect();
+    return e.clientX < r.left + PAD || e.clientX > r.right - PAD ||
+           e.clientY < r.top + PAD || e.clientY > r.bottom - PAD;
+  };
+  el.addEventListener('pointermove', e => {
+    if (!moving) el.classList.toggle('edge', onEdge(e));
+  });
+  el.addEventListener('pointerleave', () => el.classList.remove('edge'));
+  let moving = null;
+  el.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || !onEdge(e)) return;
+    e.preventDefault();
+    el.focus({ preventScroll: true });
+    moving = { px: e.pageX, py: e.pageY, x: block.x, y: block.y };
+    el.setPointerCapture(e.pointerId);
+  });
+  el.addEventListener('pointermove', e => {
+    if (!moving) return;
+    block.x = Math.max(0, moving.x + e.pageX - moving.px);
+    block.y = Math.max(0, moving.y + e.pageY - moving.py);
+    el.style.left = block.x + 'px';
+    el.style.top = block.y + 'px';
+  });
+  const endMove = () => { if (moving) { moving = null; queueSave(); } };
+  el.addEventListener('pointerup', endMove);
+  el.addEventListener('pointercancel', endMove);
   el.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       e.preventDefault();
