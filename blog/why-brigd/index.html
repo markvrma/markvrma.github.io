@@ -133,6 +133,9 @@ main { position: relative; z-index: 1 }
 <p>brigd rereads <code>flowmap.json</code> before every stage. That means a running agent is allowed to change the plan: it can add, edit or remove later stages (never its own or earlier ones), and brigd picks up the new version when the stage ends. If the edited file is invalid, brigd logs it and keeps the previous flow.</p>
 <p><code>plan-review-go</code> skill is where i use this the most. If i add "use plan-review-go" to the task, stage 1 is the only planned stage. That agent drafts a plan, gets it reviewed by <code>ponytail</code>, grills it, and asks me the questions it can't answer. Once i approve, it appends the implementation stages to the flowmap itself and brigd runs them.</p>
 <p>This way the plan that gets executed is the one i actually agreed to, and it is written by the agent that had the whole conversation with me, not guessed up front before anyone looked at the code.</p>
+
+<h3>What next?</h3>
+<p>Right now <code>brigd</code> only works with claudecode. I plan on adding support for codex/gemini/kimi in the near future. If you have any features you think would benefit brigd you are open to contribute. Code available on <a href="https://www.github.com/markvrma/brigd" target="_blank" rel="noopener">https://www.github.com/markvrma/brigd</a>.</p>
     </div>
 
     <footer class="colophon">
