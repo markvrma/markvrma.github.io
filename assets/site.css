@@ -348,3 +348,5 @@ main { overflow-x: clip }
   .mast, .flow-hint, .tools, body::before { display: none }
   .win, .card, .spec { box-shadow: none }
 }
+.job-body .when-open, .job-body[open] .when-closed { display: none }
+.job-body[open] .when-open { display: inline }
