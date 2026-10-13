@@ -26,7 +26,7 @@
 main, .lost { position: relative; z-index: 1 }
 </style>
 <link rel="preload" href="/assets/fonts/workbench.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=job3">
+<link rel="stylesheet" href="/assets/site.css?v=job4">
 <script src="/assets/braille.js?v=51314350" defer></script>
 <link rel="modulepreload" href="/assets/typeset.js?v=09dc26d2">
 <link rel="modulepreload" href="/assets/js/pretext/layout.js">
@@ -111,7 +111,7 @@ main, .lost { position: relative; z-index: 1 }
           <li>Associate Software Development Engineer<span class="when">Jul 2024 – Jan 2025</span></li>
         </ol>
       </div>
-      <details class="job-body"><summary><span class="when-closed">expand</span><span class="when-open">collapse</span> highlights · 9</summary>
+      <div class="job-body" id="jobBody1"><div class="clip" id="jobClip1">
         <ul>
           <li>Owned the ML stack for a clinical document-processing product across 26 entity types, fine-tuning a 27B vision-language model to <mark>96 percent test accuracy in production</mark>.</li>
           <li>Led development of both the <strong>entity extraction</strong> flow and the <strong>agentic feedback</strong> flow, working with cross-functional teams to align requirements, interfaces and rollout so the two shipped as one connected system, while mentoring 2 junior software engineers.</li>
@@ -124,7 +124,7 @@ main, .lost { position: relative; z-index: 1 }
           <li>Switched training to map-style lazy loading with VRAM-sized batches after a cap bounded sample count, not bytes, exhausted 80 GB of host RAM, <mark>cutting training from 90 to 25 hours</mark>.</li>
         </ul>
         <p>Engineering writeups of this platform, which I contributed to — published by 314e, authored by Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> · <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
-      </details>
+      </div><button type="button" class="btn expand needs-js" id="jobExpand1" aria-expanded="false" aria-controls="jobClip1"><span class="x-open">Show all 9 highlights</span><span class="x-close">Show fewer</span> <i aria-hidden="true">↓</i></button></div>
     </article>
 
     <article class="job">
@@ -133,9 +133,9 @@ main, .lost { position: relative; z-index: 1 }
         <div>Machine Learning Intern</div>
         <div class="job-meta">Singapore (Remote)<br>Apr 2024 – Jul 2024</div>
       </div>
-      <details class="job-body"><summary><span class="when-closed">expand</span><span class="when-open">collapse</span> highlights · 1</summary><ul>
+      <div class="job-body"><ul>
         <li>Built and deployed ML models against live market APIs to execute <strong>hedging strategies</strong>, cutting data-processing latency through targeted performance tuning and covering the core trading libraries with unit tests.</li>
-      </ul></details>
+      </ul></div>
     </article>
 
     <article class="job">
@@ -144,9 +144,9 @@ main, .lost { position: relative; z-index: 1 }
         <div>Software and ML Intern</div>
         <div class="job-meta">Maharashtra (Remote)<br>Jul 2023 – Apr 2024</div>
       </div>
-      <details class="job-body"><summary><span class="when-closed">expand</span><span class="when-open">collapse</span> highlights · 1</summary><ul>
+      <div class="job-body"><ul>
         <li>Built a preprocessing pipeline for <strong>semantic-segmentation</strong> models over large-scale GIS raster data, implementing distributed computer-vision algorithms including Douglas–Peucker and Jarvis March, and deployed <strong>Django</strong> services on AWS behind end-to-end CI/CD.</li>
-      </ul></details>
+      </ul></div>
     </article>
 
     <article class="job">
@@ -155,9 +155,9 @@ main, .lost { position: relative; z-index: 1 }
         <div>Data Analyst Intern</div>
         <div class="job-meta">Bengaluru (Remote)<br>May 2022 – Jul 2022</div>
       </div>
-      <details class="job-body"><summary><span class="when-closed">expand</span><span class="when-open">collapse</span> highlights · 1</summary><ul>
+      <div class="job-body"><ul>
         <li>Applied <strong>NLP</strong> to proprietary Amazon review datasets for product-trend insight, automating preprocessing in Python and Bash to cut data redundancy <mark>90%</mark>.</li>
-      </ul></details>
+      </ul></div>
     </article>
   </section>
 
@@ -324,5 +324,9 @@ main, .lost { position: relative; z-index: 1 }
   <pre class="term-out" id="termOut" aria-live="polite"></pre>
   <form id="termForm" autocomplete="off"><span>$</span><input id="termIn" aria-label="Command" spellcheck="false" autocapitalize="off"></form>
 </dialog>
+<script>
+(function(){var b=document.getElementById("jobExpand1"),c=document.getElementById("jobClip1");if(!b||!c)return;
+b.addEventListener("click",function(){var o=b.getAttribute("aria-expanded")!=="true";b.setAttribute("aria-expanded",o);c.parentNode.classList.toggle("open",o)})})();
+</script>
 </body>
 </html>

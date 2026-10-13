@@ -204,12 +204,6 @@ main { overflow-x: clip }
 .graph li:first-child::before { background: var(--riso); border-color: var(--riso) }
 .graph .when { display: block; color: var(--muted); font-size: 11.5px }
 .graph .head { color: var(--teal); font-weight: 700 }
-.job-body summary { cursor: pointer; list-style: none; font: 700 12px/1.6 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; user-select: none }
-.job-body summary::-webkit-details-marker { display: none }
-.job-body summary::before { content: "▾"; display: inline-block; width: 1.4em; color: var(--purple) }
-.job-body:not([open]) summary { margin-bottom: 0 }
-.job-body:not([open]) summary::before { content: "▸" }
-.job-body summary:hover { color: var(--ink) }
 .job-body ul { margin: 0; padding: 0; list-style: none }
 .job-body li { position: relative; padding-left: 26px; margin: 0 0 11px; font-size: 16px; line-height: 1.55 }
 .job-body li::before { content: "+"; position: absolute; left: 4px; top: 0; font: 700 14px/1.6 var(--mono); color: var(--purple) }
@@ -348,5 +342,11 @@ main { overflow-x: clip }
   .mast, .flow-hint, .tools, body::before { display: none }
   .win, .card, .spec { box-shadow: none }
 }
-.job-body .when-open, .job-body[open] .when-closed { display: none }
-.job-body[open] .when-open { display: inline }
+/* experience: a clipped peek at the first highlight, with a prominent expander */
+.js .job-body:not(.open) .clip { max-height: 6.4em; overflow: hidden; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent) }
+.expand { margin-top: 14px; display: inline-flex; gap: 8px; align-items: center; font-size: 13px; padding: 10px 16px; letter-spacing: .04em; background: var(--ink); color: var(--paper); box-shadow: 4px 4px 0 var(--purple) }
+.expand:hover { background: var(--purple); color: var(--paper) }
+.expand i { font-style: normal; transition: transform .15s }
+.expand[aria-expanded="true"] i { transform: rotate(180deg) }
+.expand .x-close, .expand[aria-expanded="true"] .x-open { display: none }
+.expand[aria-expanded="true"] .x-close { display: inline }
