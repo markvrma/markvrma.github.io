@@ -23,14 +23,13 @@
 .spaces-fig { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: flex-start; margin: 30px 0 34px }
 .spaces-fig figure { margin: 0; flex: 0 1 300px }
 .spaces-fig .legend { flex: 1 1 280px; margin: 0; padding: 0; list-style: none; font: 13.5px/1.6 var(--mono) }
-.spaces-fig .legend li { font: inherit; padding: 10px 0; border-bottom: 1px dashed var(--line) }
-.spaces-fig .legend li:first-child { border-top: 2px solid var(--line) }
+.spaces-fig .legend li { font: inherit; padding: 10px 0 }
 .spaces-fig .legend b { display: block; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; color: var(--purple) }
 .posts { list-style: none; margin: 36px 0 0; padding: 0; max-width: 760px }
-.posts li { border-top: 2px solid var(--line); padding: 18px 0 20px }
-.posts li:last-child { border-bottom: 2px solid var(--line) }
+.posts li { padding: 18px 0 20px }
 .posts time { font: 12px var(--mono); color: var(--muted) }
 .posts h2 { margin: 6px 0 6px; font: 400 clamp(26px, 3.6vw, 38px)/1.05 var(--display) }
 .posts h2 a { text-decoration: none }
 .posts p { margin: 0; font-size: 18px }
 .tools .btn { text-decoration: none }
+.blog .colophon { border-top: 0 }
