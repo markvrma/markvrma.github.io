@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Mark Verma</title>
+<meta name="description" content="Notes on the tools I build and the problems that made me build them.">
+<link rel="canonical" href="https://markvrma.github.io/blog/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog — Mark Verma">
+<meta property="og:description" content="Notes on the tools I build and the problems that made me build them.">
+<meta property="og:url" content="https://markvrma.github.io/blog/">
+<meta name="theme-color" content="#f0ebe0">
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+.braille-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: var(--ink, #14120f); opacity: .085 }
+.braille-bg pre {
+  margin: 0; padding: 0; border: 0; background: none; white-space: pre; overflow: hidden; user-select: none;
+  font: 13px/1 "Menlo", "DejaVu Sans Mono", "Segoe UI Symbol", monospace; letter-spacing: 0;
+}
+main { position: relative; z-index: 1 }
+</style>
+<link rel="preload" href="/assets/fonts/workbench.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=3f41556c">
+<link rel="stylesheet" href="/assets/blog.css?v=1">
+<script src="/assets/braille.js?v=51314350" defer></script>
+</head>
+<body>
+<div class="braille-bg" aria-hidden="true"><pre id="braille-bg"></pre></div>
+<a class="skip" href="#main">skip to content</a>
+
+<header class="mast">
+  <div class="wrap">
+    <a class="mast-id" href="/">MARK VERMA<span class="caret">_</span></a>
+    <nav aria-label="Sections">
+      <a href="/#work">work</a>
+      <a href="/#paper">paper</a>
+      <a href="/#projects">projects</a>
+      <a href="/#skills">skills</a>
+      <a href="/blog/">blog</a>
+      <a href="/typeset/">lab</a>
+      <a href="/files/mark_verma.pdf">cv.pdf</a>
+    </nav>
+    <div class="tools">
+      <button class="btn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="paper / phosphor">◐</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="blog wrap">
+    <div class="crumb"><a href="/">home</a> / blog</div>
+    <h1 class="display">Blog</h1>
+    <p class="post-meta"><span>notes on the tools I build, and why</span></p>
+    <ul class="posts">
+      <li>
+        <time datetime="2026-10-13">13 Oct 2026</time>
+        <h2><a href="/blog/why-brigd/">Why I built brigd</a></h2>
+        <p>I kept losing track of which Claude session did what across worktrees. herdr got me partway; brigd is the agent orchestration framework I built to get the rest of the way.</p>
+      </li>
+    </ul>
+
+    <footer class="colophon">
+      <span>© 2026 Mark Verma · Bengaluru</span>
+      <span><a href="/">← home</a> · <a href="/blog/">all posts</a></span>
+    </footer>
+  </section>
+</main>
+
+<script>
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches,n=dark?"light":"dark";
+  r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}
+});
+</script>
+</body>
+</html>

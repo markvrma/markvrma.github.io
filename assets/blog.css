@@ -1,0 +1,36 @@
+/* blog pages: layered on site.css */
+.blog { padding-top: clamp(28px, 5vw, 56px); padding-bottom: 30px }
+.blog .crumb { font: 12px var(--mono); color: var(--muted); letter-spacing: .06em }
+.blog .crumb a { text-decoration: none; color: var(--purple); font-weight: 700 }
+.blog h1.display { font-size: clamp(36px, 8vw, 96px) }
+.post-meta { margin: 18px 0 0; font: 13px/1.6 var(--mono); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center }
+.post { max-width: 760px; margin-top: 40px }
+.post h2 { margin: 56px 0 14px; font: 400 clamp(26px, 3.6vw, 40px)/1.05 var(--display); letter-spacing: 0 }
+.post h3 { margin: 40px 0 10px; font: 400 clamp(21px, 2.6vw, 28px)/1.1 var(--display); letter-spacing: 0 }
+.post h4 { margin: 32px 0 8px; font: 700 13px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--purple) }
+.post p, .post li { font-size: 19px; line-height: 1.65 }
+.post p { margin: 0 0 1.1em }
+.post ol, .post ul { padding-left: 1.4em; margin: 0 0 1.2em }
+.post li { margin-bottom: .6em }
+.post pre { margin: 0 0 1.4em; padding: 14px 16px; overflow-x: auto; font: 13.5px/1.55 var(--mono); background: var(--sunk); border: 2px solid var(--line); box-shadow: var(--shadow-sm) }
+.post pre code { background: none; border: 0; padding: 0; font: inherit }
+.post figure { margin: 30px 0 34px; max-width: none }
+.post figure.wide { width: min(1100px, calc(100vw - 2 * var(--gut))) }
+.post figure.narrow { max-width: 340px }
+.post figure img { display: block; width: 100%; height: auto; background: #000 }
+.post figcaption { padding: 10px 14px; border-top: 2px solid var(--line); font: 12.5px/1.6 var(--mono); color: var(--muted) }
+.post figcaption b { color: var(--ink) }
+.spaces-fig { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: flex-start; margin: 30px 0 34px }
+.spaces-fig figure { margin: 0; flex: 0 1 300px }
+.spaces-fig .legend { flex: 1 1 280px; margin: 0; padding: 0; list-style: none; font: 13.5px/1.6 var(--mono) }
+.spaces-fig .legend li { font: inherit; padding: 10px 0; border-bottom: 1px dashed var(--line) }
+.spaces-fig .legend li:first-child { border-top: 2px solid var(--line) }
+.spaces-fig .legend b { display: block; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; color: var(--purple) }
+.posts { list-style: none; margin: 36px 0 0; padding: 0; max-width: 760px }
+.posts li { border-top: 2px solid var(--line); padding: 18px 0 20px }
+.posts li:last-child { border-bottom: 2px solid var(--line) }
+.posts time { font: 12px var(--mono); color: var(--muted) }
+.posts h2 { margin: 6px 0 6px; font: 400 clamp(26px, 3.6vw, 38px)/1.05 var(--display) }
+.posts h2 a { text-decoration: none }
+.posts p { margin: 0; font-size: 18px }
+.tools .btn { text-decoration: none }
