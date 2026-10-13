@@ -45,6 +45,7 @@ main, .lost { position: relative; z-index: 1 }
       <a href="#paper">paper</a>
       <a href="#projects">projects</a>
       <a href="#skills">skills</a>
+      <a href="/blog/">blog</a>
       <a href="/typeset/">lab</a>
       <a href="/files/mark_verma.pdf">cv.pdf</a>
     </nav>
@@ -107,20 +108,20 @@ main, .lost { position: relative; z-index: 1 }
         <div class="job-meta">Bengaluru, India</div>
         <ol class="graph" aria-label="Roles at 314e Corp, newest first">
           <li><span class="head">(HEAD)</span> Software Development Engineer<span class="when">Jan 2025 – Present</span></li>
-          <li>Associate Software Development Engineer<span class="when">Dec 2024 – Jan 2025</span></li>
-          <li>Software Development Engineer Intern<span class="when">Jul 2024 – Dec 2024</span></li>
+          <li>Associate Software Development Engineer<span class="when">Jul 2024 – Jan 2025</span></li>
         </ol>
       </div>
       <div class="job-body">
         <ul>
-          <li>Built and owned the <strong>entity-extraction ML stack</strong> behind a clinical document-processing product, taking a fine-tuned 27B vision-language model to <mark>0.96 test accuracy</mark> across 26 clinical entity types in production.</li>
-          <li>Wrote a 7,600-line model-agnostic <strong>VLM fine-tuning package</strong> on <strong>SkyPilot</strong>, <strong>Temporal</strong> and <strong>ClearML</strong> that trains Gemma 3, Qwen3.5-9B and Qwen3.6-27B through one model-family dispatch layer, rewritten across three generations as the model family changed.</li>
-          <li>Built the <strong>human-in-the-loop retraining loop</strong> from reviewer feedback through stratified dataset construction to automated deployment, gated by a per-entity F1 regression check that blocks any model regressing beyond a tolerance scaled to its prior score.</li>
-          <li>Built a weekly <strong>accuracy-drift monitor</strong> separating genuine model regression from reviewer labelling-convention change — two causes indistinguishable in F1 that demand opposite responses — using an LLM agent over a purpose-built read-only <strong>MCP server</strong> that reads page OCR to check the document itself.</li>
-          <li>Wrote the schema-driven entity-extraction layer and a per-field <strong>confidence tree</strong> mapping token logprobs to sequence likelihood, spanning 4 LLM providers and 3 inference engines behind one validated output contract.</li>
-          <li>Trained a calibrated <strong>XGBoost confidence model</strong> over those logprobs, OCR grounding and text embeddings on <mark>99,427 reviewed extractions</mark>, halving the false-approval rate against the LLM's own confidence at matched coverage (<mark>1.4% vs 2.7%</mark>) and calibrating expected error from 0.139 to 0.004, <mark>retiring 83% of manual entity review</mark>.</li>
-          <li>Migrated entity-extraction serving from Transformers to <strong>vLLM</strong> to <strong>SGLang</strong> on RunPod serverless, reaching <mark>64 concurrent jobs</mark> per worker with continuous batching, and removed cold-start cost by baking weights into the image and pre-warming triton kernel JIT and vision-encoder init.</li>
-          <li>Cut model training time from <mark>90 hours to 25 hours</mark> by replacing an iterable dataset with map-style lazy loading and sizing batches from available VRAM, after tracing an 80&nbsp;GB host-RAM exhaustion to a cap that bounded sample count but never bytes.</li>
+          <li>Owned the ML stack for a clinical document-processing product across 26 entity types, fine-tuning a 27B vision-language model to <mark>96 percent test accuracy in production</mark>.</li>
+          <li>Led development of both the <strong>entity extraction</strong> flow and the <strong>agentic feedback</strong> flow, working with cross-functional teams to align requirements, interfaces and rollout so the two shipped as one connected system, while mentoring 2 junior software engineers.</li>
+          <li>Wrote a 7,600-line <strong>fine-tuning package</strong> (SkyPilot, Temporal, ClearML) with one dispatch layer, so <mark>Gemma 3, Qwen3.5-9B and Qwen3.6-27B train through the same code</mark>.</li>
+          <li>Built a <strong>reviewer-feedback retraining loop</strong> with stratified datasets and automated deploy behind a per-entity F1 gate, so <mark>no regression beyond a tolerance scaled to its prior score ships</mark>.</li>
+          <li>Built a weekly <strong>drift monitor</strong> where an LLM agent reads page OCR through a read-only <strong>MCP server</strong>, so regression is separated from labelling change by checking the document itself.</li>
+          <li>Wrote a schema-driven extraction layer with per-field token-logprob confidence, <mark>giving 4 LLM providers and 3 inference engines one validated output contract</mark>.</li>
+          <li>Trained a calibrated <strong>XGBoost</strong> model on logprobs, OCR grounding and embeddings over <mark>99,427 reviews</mark>, <mark>halving false approvals (1.4% vs 2.7%)</mark>, cutting calibration error 0.139 to 0.004 and retiring 83% of manual entity review.</li>
+          <li>Moved serving from Transformers to <strong>vLLM</strong> to <strong>SGLang</strong> on RunPod serverless with baked weights and pre-warmed kernels, reaching <mark>64 concurrent jobs per worker with no cold-start cost</mark>.</li>
+          <li>Switched training to map-style lazy loading with VRAM-sized batches after a cap bounded sample count, not bytes, exhausted 80 GB of host RAM, <mark>cutting training from 90 to 25 hours</mark>.</li>
         </ul>
         <p>Engineering writeups of this platform, which I contributed to — published by 314e, authored by Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> · <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
       </div>

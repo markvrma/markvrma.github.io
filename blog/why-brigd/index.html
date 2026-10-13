@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why I built brigd — Mark Verma</title>
+<meta name="description" content="I kept losing track of which Claude session did what across worktrees. herdr got me partway; brigd is the agent orchestration framework I built to get the rest of the way.">
+<link rel="canonical" href="https://markvrma.github.io/blog/why-brigd/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why I built brigd — Mark Verma">
+<meta property="og:description" content="I kept losing track of which Claude session did what across worktrees. herdr got me partway; brigd is the agent orchestration framework I built to get the rest of the way.">
+<meta property="og:url" content="https://markvrma.github.io/blog/why-brigd/">
+<meta name="theme-color" content="#f0ebe0">
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+.braille-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: var(--ink, #14120f); opacity: .085 }
+.braille-bg pre {
+  margin: 0; padding: 0; border: 0; background: none; white-space: pre; overflow: hidden; user-select: none;
+  font: 13px/1 "Menlo", "DejaVu Sans Mono", "Segoe UI Symbol", monospace; letter-spacing: 0;
+}
+main { position: relative; z-index: 1 }
+</style>
+<link rel="preload" href="/assets/fonts/workbench.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=3f41556c">
+<link rel="stylesheet" href="/assets/blog.css?v=1">
+<script src="/assets/braille.js?v=51314350" defer></script>
+</head>
+<body>
+<div class="braille-bg" aria-hidden="true"><pre id="braille-bg"></pre></div>
+<a class="skip" href="#main">skip to content</a>
+
+<header class="mast">
+  <div class="wrap">
+    <a class="mast-id" href="/">MARK VERMA<span class="caret">_</span></a>
+    <nav aria-label="Sections">
+      <a href="/#work">work</a>
+      <a href="/#paper">paper</a>
+      <a href="/#projects">projects</a>
+      <a href="/#skills">skills</a>
+      <a href="/blog/">blog</a>
+      <a href="/typeset/">lab</a>
+      <a href="/files/mark_verma.pdf">cv.pdf</a>
+    </nav>
+    <div class="tools">
+      <button class="btn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="paper / phosphor">◐</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <article class="blog wrap">
+    <div class="crumb"><a href="/blog/">blog</a> / why-brigd</div>
+    <h1 class="display">Why I built brigd</h1>
+    <p class="post-meta"><time datetime="2026-10-13">13 Oct 2026</time><span class="stamp">post #1</span><span>agents · orchestration · tooling</span></p>
+
+    <div class="post">
+<h2>What started this odyssey</h2>
+<p>When working on multiple features on multiple worktrees it became hard to keep track of which claude session did what and based on the feature what exactly had been done until this point. If you're someone who has 50 chrome tabs open at any given point, this is a HUGE issue.</p>
+
+<h3>How herdr partially solved this (for me)</h3>
+<p>herdr has the concept of spaces/tabs/panes/agents, so in theory within any space you open a claude session, it will pop up in your agents tab as well. so name the agents well and you should be able to keep track of what is going on. nice.</p>
+
+<h4>Why herdr didnt work for me :(</h4>
+<ol>
+<li>The agents tab was not really useful. Multiple agents in the same directory would clutter the tab.</li>
+<li>subagents don't popup in the agents tab. claude runs a subagent inside the same session, not as a new process or terminal, so herdr has nothing to pick up. The only trace is the subagent's transcript file on disk.</li>
+<li>The subagent who did the task is missing, and now i have to communicate with its parent(?) agent. When a claude session calls multiple subagents for multiple tasks, Not being able to go through the logs of the agent who did the particular job and not talk to it <em>directly</em> feels like I'm not getting my moneys worth. Not only am i burning tokens trying to recollect information, there will inevitably be a game of telephone which will garble information.</li>
+</ol>
+
+<h2>Enter brigd</h2>
+<p><code>brigd</code> (derived from brigade, like a kitchen brigade) is an agent orchestration framework inspired by LangGraph. In essence it allows you to explain your problem and then have complete visibility over every step of the process, what each agent did, the files it touched and talk directly to the agent who did a certain task(finally).</p>
+
+<figure class="win wide">
+  <div class="win-bar"><span class="win-box" aria-hidden="true"></span><span class="win-title">brigd — one thread, three panes</span></div>
+  <a href="/images/blog/brigd-overview.png"><img src="/images/blog/brigd-overview.png" width="1920" height="1063" alt="The brigd TUI: the spaces sidebar on the left, a colored git diff of src/recs.rs in the middle, and a Claude session reporting on the finished integrate stage on the right" loading="lazy"></a>
+  <figcaption>The whole thing at a glance. <b>Left:</b> the sidebar tree of spaces, threads, agents and the files each one touched. <b>Middle:</b> the diff of the file selected in the sidebar. <b>Right:</b> the live claude session of the agent that did the work.</figcaption>
+</figure>
+
+<p>It is intended for long tasks and large features where you are required to know what code changed and for you to come back to and go through the entire design process to why you or an agent did something.</p>
+
+<h3>Thread</h3>
+<p>A thread is one run of a flow. You start one with <code>brigd &lt;name&gt; "task"</code> from inside the repo you want to work on OR from the TUI, and everything about it lives under <code>~/.brigd/threads/&lt;name&gt;/</code>: the <code>flowmap.json</code>, a <code>state.json</code> that tracks where it is, and a folder per agent with its prompt and its <code>output.md</code>.</p>
+<p>Every agent in a thread is a real interactive claude session, not a headless job. brigd saves each session id, so even after the agent is done or brigd was closed, opening it from the sidebar reopens it with <code>claude --resume</code> and you can just resume your work. If you stop halfway, <code>brigd resume &lt;name&gt;</code> picks the thread up where it left off.</p>
+<p>Each thread gets its tabs, and you can split it into two panes with <code>Ctrl-o v</code>. The new pane opens a terminal and has its own tab bar, and <code>Ctrl-o o</code> switches between the two. Two is the max on purpose. Realistically <em>most</em> people are not going to use more than 2 panes side by side, and if you need more open a new tab(you're not shipping more with 4 small panes, it'll just look like you are....ok i can see why someone might want this).</p>
+<p>This is the part that fixes my original problem. I no longer have to remember which session did what, the thread remembers it for me, and i talk to the agent that did the work instead of asking another agent to reconstruct it.</p>
+
+<h3>Flowmap</h3>
+<p>The flowmap is the plan for a thread, an overview of what is happening or has happened in this thread. It is a JSON file with a goal and a list of stages, and each stage is a list of agents. Stages run in order, and the agents inside a stage run in parallel. Each agent gets its own model, effort, mode and optionally its own git worktree, so two agents editing code don't step on each other.</p>
+<pre><code>{
+  "goal": "...",
+  "stages": [
+    [{ "name": "plan", "model": "opus", "effort": "high", "worktree": null, "task": "..." }],
+    [{ "name": "build", "model": "sonnet", "effort": "medium", "worktree": "build", "task": "..." }]
+  ]
+}</code></pre>
+
+<figure class="win wide">
+  <div class="win-bar"><span class="win-box" aria-hidden="true"></span><span class="win-title">msm-recs FLOWPLAN</span></div>
+  <a href="/images/blog/brigd-flowmap.png"><img src="/images/blog/brigd-flowmap.png" width="1641" height="709" alt="A rendered flowmap: the goal, then three stages with their agents (rust-recs and py-build in parallel, sample-run and review-rs in parallel, then integrate), each with model, effort and worktree, followed by the run log" loading="lazy"></a>
+  <figcaption>A real flowmap, rendered. Stages run top to bottom; the agents inside a stage run in parallel, each with its own model, effort and worktree (<b>wt</b>). The log at the bottom shows each stage starting and finishing.</figcaption>
+</figure>
+
+<p>You do not have to write these. The <code>brigd-plan</code> skill takes a plain english task and turns it into a flowmap, and brigd shows it to me before it runs. A later stage doesn't get a summary of what came before, it gets the paths to the earlier agents' <code>output.md</code> files and reads what it needs. That cuts down a lot on the game of telephone.</p>
+
+<h3>Spaces</h3>
+<p>I kept the word from herdr but dropped the rest. In brigd a space is just a repo (named after its folder), and the sidebar is one tree: space → thread → agent → subagent → output. There are no tabs vs panes decisions to make before i can start working.</p>
+
+<div class="spaces-fig">
+  <figure class="win">
+    <div class="win-bar"><span class="win-box" aria-hidden="true"></span><span class="win-title">spaces</span></div>
+    <a href="/images/blog/brigd-spaces.png"><img src="/images/blog/brigd-spaces.png" width="282" height="658" alt="The brigd sidebar tree: the youtube-music-cli space with its metadata and msm-recs threads, and under msm-recs the agents rust-recs, py-build, sample-run, review-rs and integrate with the files each touched and their +added -removed counts" loading="lazy"></a>
+  </figure>
+  <ul class="legend">
+    <li><b>Topmost value</b>The main directory (the repo, here <code>youtube-music-cli</code>) that all the worktrees branch off from.</li>
+    <li><b>Greyed out</b>The worktree that agent is working on (e.g. <code>recs-rs</code>, <code>recs-py</code>).</li>
+    <li><b>Colored</b>The agent's name (e.g. <code>rust-recs</code>, <code>review-rs</code>, <code>integrate</code>).</li>
+    <li><b>Under each agent</b>Every file it touched, with its <code>+added -removed</code> line count.</li>
+  </ul>
+</div>
+
+<p>The tree is also where i control things. Each space row has a <code>+</code> that opens the new thread dialog for that repo: give it a name and a task, brigd plans it and asks me to confirm. Each thread row has a red dot that stops every agent in that thread at once (it sends them <code>Esc</code>), and clicking it again tells them all to continue. If one agent goes off the rails, right click it and hit Terminate, which kills it and reverts the files it changed but keeps its output.</p>
+<p>Subagents show up in that tree too. brigd reads the subagent transcripts claude writes for each session and mirrors them under the agent that spawned them, nested the same way they were called, with their own <code>output.md</code>.</p>
+<p>Under each agent you also see every file it touched, including edits made by its subagents. brigd gets that list from the claude transcripts, so it is per agent even when several agents share the same repo. Each file row shows its <code>+added -removed</code> line count, and opening it shows a colored diff against the commit the agent started from. Once the agent is done, brigd saves that diff, so later stages or my own edits don't change what that agent's diff looks like.</p>
+<p>So the two things that annoyed me most about herdr are covered:</p>
+<ol>
+<li>subagents are visible in the sidebar, not lost in their own PTY.</li>
+<li>their logs are right there, so i can read exactly what the subagent did instead of asking the parent agent to remember.</li>
+</ol>
+
+<h3>Agent Extendable Flowmaps</h3>
+<p>brigd rereads <code>flowmap.json</code> before every stage. That means a running agent is allowed to change the plan: it can add, edit or remove later stages (never its own or earlier ones), and brigd picks up the new version when the stage ends. If the edited file is invalid, brigd logs it and keeps the previous flow.</p>
+<p><code>plan-review-go</code> skill is where i use this the most. If i add "use plan-review-go" to the task, stage 1 is the only planned stage. That agent drafts a plan, gets it reviewed by <code>ponytail</code>, grills it, and asks me the questions it can't answer. Once i approve, it appends the implementation stages to the flowmap itself and brigd runs them.</p>
+<p>This way the plan that gets executed is the one i actually agreed to, and it is written by the agent that had the whole conversation with me, not guessed up front before anyone looked at the code.</p>
+    </div>
+
+    <footer class="colophon">
+      <span>© 2026 Mark Verma · Bengaluru</span>
+      <span><a href="/">← home</a> · <a href="/blog/">all posts</a></span>
+    </footer>
+  </article>
+</main>
+
+<script>
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches,n=dark?"light":"dark";
+  r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}
+});
+</script>
+</body>
+</html>
