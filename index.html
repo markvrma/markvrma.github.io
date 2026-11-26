@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mark Verma — ML Engineer</title>
-<meta name="description" content="ML Engineer — MLOps, ML systems, and building things from first principles">
+<title>Mark Verma — Applied AI/ML Engineer</title>
+<meta name="description" content="Applied AI/ML Engineer — GenAI agents, ML systems, and building things from first principles">
 <link rel="canonical" href="https://markvrma.github.io/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mark Verma — ML Engineer">
-<meta property="og:description" content="ML Engineer — MLOps, ML systems, and building things from first principles">
+<meta property="og:title" content="Mark Verma — Applied AI/ML Engineer">
+<meta property="og:description" content="Applied AI/ML Engineer — GenAI agents, ML systems, and building things from first principles">
 <meta property="og:url" content="https://markvrma.github.io/">
 <meta property="og:image" content="https://markvrma.github.io/images/me-24bit.jpg">
 <meta name="theme-color" content="#f0ebe0">
@@ -31,7 +31,7 @@ main, .lost { position: relative; z-index: 1 }
 <link rel="modulepreload" href="/assets/typeset.js?v=09dc26d2">
 <link rel="modulepreload" href="/assets/js/pretext/layout.js">
 <link rel="modulepreload" href="/assets/js/pretext/rich-inline.js">
-<script type="module" src="/assets/site.js?v=906b9e51"></script>
+<script type="module" src="/assets/site.js?v=4cb24fd3"></script>
 </head>
 <body>
 <div class="braille-bg" aria-hidden="true"><pre id="braille-bg"></pre></div>
@@ -61,7 +61,7 @@ main, .lost { position: relative; z-index: 1 }
   <section class="hero wrap" id="hi">
     <div class="hero-meta"><span>§00 · hello</span><span>BENGALURU, INDIA · 12.97°N 77.59°E</span><span>he/him</span></div>
     <h1 class="display">Hi, I’m Mark</h1>
-    <p class="kicker"><span>ML Engineer building MLOps pipelines &amp; systems</span><span class="stamp">at 314e Corp</span></p>
+    <p class="kicker"><span>Applied AI/ML engineer building GenAI agents &amp; ML systems</span><span class="stamp">at 314e Corp</span></p>
 
     <div class="hero-grid">
       <div>
@@ -74,7 +74,7 @@ main, .lost { position: relative; z-index: 1 }
             </div>
             <figcaption class="win-foot"><span>me having fun</span><button class="btn needs-js" type="button" id="bitBtn">24-bit · 20 KB</button></figcaption>
           </figure>
-          <p class="intro" id="intro">I'm an <strong>ML Engineer</strong> at <a href="https://www.314ecorp.com" target="_blank" rel="noopener">314e Corp</a> in Bengaluru, where I build and operate MLOps pipelines for healthcare ML systems — orchestration, distributed data processing, and model serving at scale. Outside of work I write low-level Rust and Python for fun: reimplementing NumPy from scratch, and building terminal tools I actually use every day.</p>
+          <p class="intro" id="intro">I'm an <strong>applied AI/ML engineer</strong> at <a href="https://www.314ecorp.com" target="_blank" rel="noopener">314e Corp</a> in Bengaluru with 2+ years shipping GenAI applications to production in Python: AI agents and agentic workflows, RAG, PyTorch model training and serving, and fault-tolerant async pipelines on AWS and GCP. Outside of work I write low-level Rust for fun: a NumPy from scratch, a terminal music player, and a multi-agent orchestrator.</p>
         </div>
         <p class="flow-hint" id="flowHint" hidden>drag the photo or the spec sheet into the paragraph.</p>
       </div>
@@ -83,7 +83,7 @@ main, .lost { position: relative; z-index: 1 }
         <h3>SPEC SHEET · rev. 2026</h3>
         <dl>
           <dt>name</dt><dd>Mark Verma</dd>
-          <dt>role</dt><dd>ML Engineer — MLOps, ML systems, and building things from first principles</dd>
+          <dt>role</dt><dd>Applied AI/ML Engineer — GenAI agents, ML systems, and building things from first principles</dd>
           <dt>at</dt><dd><a href="https://www.314ecorp.com" target="_blank" rel="noopener">314e Corp</a></dd>
           <dt>base</dt><dd>Bengaluru, India</dd>
           <dt>pronouns</dt><dd>he/him</dd>
@@ -112,15 +112,15 @@ main, .lost { position: relative; z-index: 1 }
       </div>
       <div class="job-body" id="jobBody1"><div class="clip" id="jobClip1">
         <ul>
-          <li>Owned the ML stack for a clinical document-processing product across 26 entity types, fine-tuning a 27B vision-language model to <mark>96 percent test accuracy in production</mark>.</li>
-          <li>Led development of both the <strong>entity extraction</strong> flow and the <strong>agentic feedback</strong> flow, working with cross-functional teams to align requirements, interfaces and rollout so the two shipped as one connected system, while mentoring 2 junior software engineers.</li>
-          <li>Wrote a 7,600-line <strong>fine-tuning package</strong> (SkyPilot, Temporal, ClearML) with one dispatch layer, so <mark>Gemma 3, Qwen3.5-9B and Qwen3.6-27B train through the same code</mark>.</li>
-          <li>Built a <strong>reviewer-feedback retraining loop</strong> with stratified datasets and automated deploy behind a per-entity F1 gate, so <mark>no regression beyond a tolerance scaled to its prior score ships</mark>.</li>
-          <li>Built a weekly <strong>drift monitor</strong> where an LLM agent reads page OCR through a read-only <strong>MCP server</strong>, so regression is separated from labelling change by checking the document itself.</li>
-          <li>Wrote a schema-driven extraction layer with per-field token-logprob confidence, <mark>giving 4 LLM providers and 3 inference engines one validated output contract</mark>.</li>
-          <li>Trained a calibrated <strong>XGBoost</strong> model on logprobs, OCR grounding and embeddings over <mark>99,427 reviews</mark>, <mark>halving false approvals (1.4% vs 2.7%)</mark>, cutting calibration error 0.139 to 0.004 and retiring 83% of manual entity review.</li>
-          <li>Moved serving from Transformers to <strong>vLLM</strong> to <strong>SGLang</strong> on RunPod serverless with baked weights and pre-warmed kernels, reaching <mark>64 concurrent jobs per worker with no cold-start cost</mark>.</li>
-          <li>Switched training to map-style lazy loading with VRAM-sized batches after a cap bounded sample count, not bytes, exhausted 80 GB of host RAM, <mark>cutting training from 90 to 25 hours</mark>.</li>
+          <li>Owned the ML stack for a clinical document-AI product, taking a fine-tuned 27B vision-language model from prototype to production at <mark>96% test accuracy</mark> across 26 entity types.</li>
+          <li>Retired <mark>83% of manual entity review</mark> and <mark>halved false approvals (2.7% to 1.4%)</mark> with a calibrated <strong>XGBoost</strong> confidence model trained on logprobs, OCR grounding and embeddings over <mark>99,427 reviews</mark>, cutting calibration error from 0.139 to 0.004.</li>
+          <li>Built an <strong>agentic workflow</strong> for drift observability: a weekly <strong>Temporal</strong> job computes per-entity F1 drift in SQL, then an AI agent plans, retrieves page OCR via <strong>MCP</strong> tool use in an execution loop (50-call budget, per-request memory), reasons on OpenAI or Gemini (GCP Vertex AI) and emails a plain-language retrain verdict separating model regression from relabelling.</li>
+          <li>Turned unstructured enterprise data into structured data with a schema-driven <strong>LLM extraction layer</strong> (Pydantic, structured outputs, logprob confidence) giving <mark>4 GenAI providers one output contract</mark>; in a 60-page POC, post-generation validation instead of grammar-constrained decoding <mark>raised populated fields from 2.5 to 15.6 per page</mark> (exact matches 84 to 788).</li>
+          <li>Led the <strong>entity extraction</strong> and <strong>agentic feedback</strong> flows with cross-functional teams, and mentored 2 junior engineers.</li>
+          <li>Wrote a 7,600-line <strong>PyTorch QLoRA fine-tuning package</strong> (SkyPilot, Temporal, ClearML dashboards) for Gemma 3, Qwen3.5-9B and Qwen3.6-27B, fed by a reviewer-feedback retraining loop whose <mark>per-entity F1 governance gate blocks regressed models</mark>.</li>
+          <li>Scaled GPU inference on autoscaling <strong>RunPod</strong> serverless workers: moved serving from Transformers to <strong>vLLM</strong> with continuous batching at <mark>64 concurrent jobs per worker</mark>, and built a micro-batcher that drains queued jobs into one GPU encode call.</li>
+          <li>Hardened Temporal-orchestrated async ML pipelines (FastAPI, PostgreSQL job state, S3): stopped retries orphaning PROCESSING rows via a terminal FAILED state, bounded S3 reads, batched DB writes, and added CUDA-fault restarts.</li>
+          <li>Reduced SFT time <mark>by 50%</mark> by fixing an 80 GB RAM OOM via lazy loading and VRAM-sized batches.</li>
         </ul>
         <p>Engineering writeups of this platform, which I contributed to — published by 314e, authored by Dr. Srivatsan Sridhar: <a href="https://www.314e.com/engineering-hub/automated-document-processing-with-dexit-behind-the-scenes-of-ai-document-extraction-and-classification" target="_blank" rel="noopener">AI document extraction &amp; classification</a> · <a href="https://www.314e.com/engineering-hub/cracking-the-code-ai-native-intelligent-document-processing-for-medical-records/" target="_blank" rel="noopener">IDP for medical records</a></p>
       </div><button type="button" class="btn expand needs-js" id="jobExpand1" aria-expanded="false" aria-controls="jobClip1"><span class="x-open">Show all highlights</span><span class="x-close">Show fewer</span> <i aria-hidden="true">↓</i></button></div>
@@ -133,7 +133,7 @@ main, .lost { position: relative; z-index: 1 }
         <div class="job-meta">Singapore (Remote)<br>Apr 2024 – Jul 2024</div>
       </div>
       <div class="job-body"><ul>
-        <li>Built and deployed ML models against live market APIs to execute <strong>hedging strategies</strong>, cutting data-processing latency through targeted performance tuning and covering the core trading libraries with unit tests.</li>
+        <li>Deployed financial <strong>hedging</strong> ML models on live market APIs, cutting data-processing latency and unit-testing trading code.</li>
       </ul></div>
     </article>
 
@@ -144,7 +144,7 @@ main, .lost { position: relative; z-index: 1 }
         <div class="job-meta">Maharashtra (Remote)<br>Jul 2023 – Apr 2024</div>
       </div>
       <div class="job-body"><ul>
-        <li>Built a preprocessing pipeline for <strong>semantic-segmentation</strong> models over large-scale GIS raster data, implementing distributed computer-vision algorithms including Douglas–Peucker and Jarvis March, and deployed <strong>Django</strong> services on AWS behind end-to-end CI/CD.</li>
+        <li>Built a distributed <strong>GIS raster data pipeline</strong> for semantic segmentation and deployed <strong>Django</strong> services on AWS with CI/CD.</li>
       </ul></div>
     </article>
 
@@ -155,7 +155,7 @@ main, .lost { position: relative; z-index: 1 }
         <div class="job-meta">Bengaluru (Remote)<br>May 2022 – Jul 2022</div>
       </div>
       <div class="job-body"><ul>
-        <li>Applied <strong>NLP</strong> to proprietary Amazon review datasets for product-trend insight, automating preprocessing in Python and Bash to cut data redundancy <mark>90%</mark>.</li>
+        <li>Applied <strong>NLP</strong> to proprietary Amazon review datasets for retail analytics (product-trend insight), automating preprocessing in Python and Bash to cut data redundancy <mark>90%</mark>.</li>
       </ul></div>
     </article>
   </section>
@@ -187,8 +187,8 @@ main, .lost { position: relative; z-index: 1 }
         <div class="win-bar"><span class="win-title">~/src/brigd — brigd resume</span></div>
         <div class="proj-in">
           <h3><a href="https://github.com/markvrma/brigd" target="_blank" rel="noopener">brigd</a></h3>
-          <ul class="tags"><li>Agents</li><li>Orchestration</li><li>TUI</li></ul>
-          <p class="desc">An agent orchestration framework inspired by LangGraph, built on Claude Code. Describe a task and brigd plans it as stages of parallel agents, each in its own git worktree, then shows every agent, subagent, touched file and diff in one sidebar — and lets you resume and talk directly to the agent that did the work.</p>
+          <ul class="tags"><li>Rust</li><li>Multi-agent</li><li>TUI</li></ul>
+          <p class="desc">A framework-free multi-agent orchestrator built after LangChain’s chain design, on top of Claude Code. A planner agent emits a schema-validated JSON flow; stages run parallel Claude agents in isolated git worktrees and replan mid-run, and run state persists to disk so interrupted runs resume. A 4,400-line Rust TUI (42 tests) shows live agent panes and per-agent diff trees, with pause, terminate and revert controls.</p>
           <div class="links"><a href="/blog/why-brigd/">Blog post →</a><a href="https://github.com/markvrma/brigd" target="_blank" rel="noopener">Code</a></div>
         </div>
       </article>
@@ -208,7 +208,7 @@ main, .lost { position: relative; z-index: 1 }
         <div class="proj-in">
           <h3><a href="https://github.com/markvrma/rumpy" target="_blank" rel="noopener">rumpy</a></h3>
           <ul class="tags"><li>Rust</li><li>Systems</li><li>Benchmarking</li></ul>
-          <p class="desc">A zero-dependency NumPy, written from scratch in pure Rust — same internals as the real thing (flat buffer + shape + strides). Reimplements broadcasting, axis reductions, and matmul from first principles, then benchmarks a cache-friendly <code>ikj</code> loop order against BLAS-backed NumPy. Spec-driven with ~30 milestone tests.</p>
+          <p class="desc">A zero-dependency NumPy, written from scratch in pure Rust — same internals as the real thing (flat buffer + shape + strides). Reimplements stride-0 broadcasting, axis reductions, and an <code>ikj</code> matmul from first principles, then benchmarks it against BLAS-backed NumPy. Spec-driven with 32 milestone tests.</p>
           <div class="links"><a href="https://github.com/markvrma/rumpy" target="_blank" rel="noopener">Code</a></div>
         </div>
       </article>
@@ -217,10 +217,10 @@ main, .lost { position: relative; z-index: 1 }
       <article class="proj win dos">
         <div class="win-bar"><span class="win-box" aria-hidden="true"></span><span class="win-title">MSM.EXE</span></div>
         <div class="proj-in">
-          <h3><a href="https://github.com/markvrma/yt-music-cli" target="_blank" rel="noopener">msm — YouTube Music CLI</a></h3>
-          <ul class="tags"><li>Python</li><li>TUI</li><li>mpv / yt-dlp</li></ul>
-          <p class="desc">A terminal player that browses YouTube Music and your local library side by side, plays audio through <code>mpv</code> over its JSON IPC socket, and scrobbles to Last.fm via <code>cmusfm</code>. Vim-style keys, live search, play history, and pixelated album art rendered straight in the terminal.</p>
-          <div class="links"><a href="https://github.com/markvrma/yt-music-cli" target="_blank" rel="noopener">Code</a></div>
+          <h3><a href="https://github.com/markvrma/msm" target="_blank" rel="noopener">msm — terminal music player</a></h3>
+          <ul class="tags"><li>Rust</li><li>TUI</li><li>mpv IPC</li></ul>
+          <p class="desc">A 7,300-line Rust terminal music player (75 tests) that browses YouTube Music and your local library side by side, plays audio through <code>mpv</code> over its JSON IPC socket, and scrobbles to Last.fm. Vim-style keys, live search, play history, and pixelated album art rendered straight in the terminal. Ships with a Homebrew tap.</p>
+          <div class="links"><a href="https://github.com/markvrma/msm" target="_blank" rel="noopener">Code</a></div>
         </div>
       </article>
 
@@ -262,17 +262,21 @@ main, .lost { position: relative; z-index: 1 }
     <div class="sec-head"><span class="sec-no">§04</span><h2>Skills</h2><span class="sec-rule" aria-hidden="true"></span><span class="sec-note">as the tokenizer sees them</span></div>
       <div class="tok-group">
         <h3>tokenize(<b>Languages</b>) → 5 tokens</h3>
-        <ul class="toks"><li class="tok">Python<sub>24307</sub></li><li class="tok">C++<sub>46005</sub></li><li class="tok">Rust<sub>4075</sub></li><li class="tok">Bash<sub>40604</sub></li><li class="tok">JavaScript<sub>49001</sub></li></ul>
+        <ul class="toks"><li class="tok">Python<sub>24307</sub></li><li class="tok">SQL<sub>22601</sub></li><li class="tok">C++<sub>46005</sub></li><li class="tok">Rust<sub>4075</sub></li><li class="tok">Bash<sub>40604</sub></li></ul>
       </div>
       <div class="tok-group">
-        <h3>tokenize(<b>Libraries &amp; Frameworks</b>) → 16 tokens</h3>
-        <ul class="toks"><li class="tok">PyTorch<sub>18738</sub></li><li class="tok">TensorFlow<sub>30783</sub></li><li class="tok">scikit-learn<sub>14340</sub></li><li class="tok">NumPy<sub>287</sub></li><li class="tok">Pandas<sub>5067</sub></li><li class="tok">OpenCV<sub>24217</sub></li><li class="tok">Rasterio<sub>35368</sub></li><li class="tok">Matplotlib<sub>7877</sub></li><li class="tok">Django<sub>4254</sub></li><li class="tok">Flask<sub>31214</sub></li><li class="tok">FastAPI<sub>20179</sub></li><li class="tok">Dash<sub>21590</sub></li><li class="tok">vLLM<sub>5691</sub></li><li class="tok">SGLang<sub>25150</sub></li><li class="tok">RunPod SDK<sub>22086</sub></li><li class="tok">SkyPilot<sub>22426</sub></li></ul>
+        <h3>tokenize(<b>GenAI &amp; Agents</b>) → 14 tokens</h3>
+        <ul class="toks"><li class="tok">LLMs<sub>22765</sub></li><li class="tok">RAG pipelines<sub>32802</sub></li><li class="tok">embeddings<sub>37877</sub></li><li class="tok">vector databases (pgvector)<sub>24052</sub></li><li class="tok">semantic search<sub>33152</sub></li><li class="tok">AI agents<sub>48630</sub></li><li class="tok">agentic workflows<sub>18658</sub></li><li class="tok">multi-agent systems<sub>13450</sub></li><li class="tok">tool use<sub>16327</sub></li><li class="tok">MCP<sub>41020</sub></li><li class="tok">function calling<sub>34818</sub></li><li class="tok">Pydantic<sub>41569</sub></li><li class="tok">structured outputs<sub>28312</sub></li><li class="tok">prompt engineering<sub>35681</sub></li></ul>
       </div>
       <div class="tok-group">
-        <h3>tokenize(<b>Tools &amp; Platforms</b>) → 10 tokens</h3>
-        <ul class="toks"><li class="tok">Docker<sub>47498</sub></li><li class="tok">Kubernetes<sub>1286</sub></li><li class="tok">AWS SageMaker<sub>44331</sub></li><li class="tok">MLflow<sub>18091</sub></li><li class="tok">ClearML<sub>11897</sub></li><li class="tok">Temporal<sub>44036</sub></li><li class="tok">Git<sub>23698</sub></li><li class="tok">Linux<sub>26512</sub></li><li class="tok">PostgreSQL<sub>942</sub></li><li class="tok">Streamlit<sub>22821</sub></li></ul>
+        <h3>tokenize(<b>Machine Learning</b>) → 14 tokens</h3>
+        <ul class="toks"><li class="tok">PyTorch<sub>18738</sub></li><li class="tok">TensorFlow.js<sub>47117</sub></li><li class="tok">Hugging Face Transformers<sub>10236</sub></li><li class="tok">vision-language models<sub>44004</sub></li><li class="tok">LoRA fine-tuning<sub>16039</sub></li><li class="tok">vLLM<sub>5691</sub></li><li class="tok">SGLang<sub>25150</sub></li><li class="tok">XGBoost<sub>17746</sub></li><li class="tok">model training and serving<sub>19426</sub></li><li class="tok">model evaluation<sub>33478</sub></li><li class="tok">model monitoring<sub>48168</sub></li><li class="tok">drift detection<sub>33923</sub></li><li class="tok">calibration<sub>5519</sub></li><li class="tok">scikit-learn<sub>14340</sub></li></ul>
       </div>
-      <p class="tok-sum">31 tokens · vocab 50,257 · ids are a hash, not a real tokenizer</p>
+      <div class="tok-group">
+        <h3>tokenize(<b>Cloud-Native &amp; Backend</b>) → 17 tokens</h3>
+        <ul class="toks"><li class="tok">AWS (S3)<sub>31833</sub></li><li class="tok">GCP Vertex AI<sub>13920</sub></li><li class="tok">Docker<sub>47498</sub></li><li class="tok">Kubernetes<sub>1286</sub></li><li class="tok">Ray Serve<sub>19203</sub></li><li class="tok">Temporal<sub>44036</sub></li><li class="tok">SkyPilot<sub>22426</sub></li><li class="tok">ClearML<sub>11897</sub></li><li class="tok">MLflow<sub>18091</sub></li><li class="tok">RunPod<sub>32351</sub></li><li class="tok">FastAPI<sub>20179</sub></li><li class="tok">Django<sub>4254</sub></li><li class="tok">gRPC<sub>14288</sub></li><li class="tok">PostgreSQL<sub>942</sub></li><li class="tok">CI/CD<sub>742</sub></li><li class="tok">Git<sub>23698</sub></li><li class="tok">Linux<sub>26512</sub></li></ul>
+      </div>
+      <p class="tok-sum">50 tokens · vocab 50,257 · ids are a hash, not a real tokenizer</p>
   </section>
 
   <section class="sec wrap" id="edu">
@@ -295,7 +299,7 @@ main, .lost { position: relative; z-index: 1 }
       <ul class="certs">
         <li><span class="label">cert</span>DevOps on AWS Specialization</li>
         <li><span class="label">cert</span>GCP Network Deployment</li>
-        <li><span class="label">open source</span><span>Contributor <a href="https://github.com/pymc-devs/pymc" target="_blank" rel="noopener">@PyMC</a></span></li>
+        <li><span class="label">open source</span><span>8 pull requests across <a href="https://github.com/pymc-devs/pymc" target="_blank" rel="noopener">PyMC</a>, <a href="https://github.com/MDAnalysis/mdanalysis" target="_blank" rel="noopener">MDAnalysis</a> and <a href="https://github.com/sktime/sktime" target="_blank" rel="noopener">sktime</a> (4 merged), including <a href="https://github.com/pymc-devs/pymc/pull/5476" target="_blank" rel="noopener">pymc#5476</a>; MDAnalysis work under Google Season of Docs</span></li>
       </ul>
     </div>
   </section>

@@ -96,7 +96,7 @@ const COMMANDS = {
   bitrate           swap the portrait between 1-bit and 24-bit
   weight            bytes this page has cost you
   clear, exit`),
-  whoami: () => print('Mark Verma — ML Engineer at 314e Corp, Bengaluru. he/him.\nbuilds MLOps pipelines for healthcare ML; writes Rust and Python for fun.'),
+  whoami: () => print('Mark Verma — Applied AI/ML engineer at 314e Corp, Bengaluru. he/him.\nships GenAI agents and ML systems to production; writes Rust for fun.'),
   ls: arg => arg === 'projects' || arg === 'src'
     ? print(projects().map(p => p.name).join('\n'))
     : print('work/  paper/  projects/  skills/  edu/  contact/  cv.pdf  lab/', 'dim'),
